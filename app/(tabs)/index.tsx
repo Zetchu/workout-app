@@ -9,9 +9,8 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import Header from '../../src/components/Header';
-import ExerciseCard from '../../src/components/ExerciseCard';
-import { fetchExercises, Exercise } from '../../src/services/workoutService';
+import { Header } from '#shared';
+import { ExerciseCard, fetchExercises, type Exercise } from '#exercises';
 
 export default function CatalogScreen() {
   const router = useRouter();
