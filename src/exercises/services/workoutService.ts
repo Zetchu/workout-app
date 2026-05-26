@@ -7,7 +7,6 @@ export interface Exercise {
   instructions: string;
 }
 
-// Replace this with your actual API key from your api-ninjas.com dashboard
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 const BASE_URL = 'https://api.api-ninjas.com/v1/exercises';
 
