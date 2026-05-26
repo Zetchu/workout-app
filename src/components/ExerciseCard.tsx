@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Exercise } from './workoutService';
+import { Exercise } from '../services/workoutService';
 
 interface ExerciseCardProps {
   exercise: Exercise;

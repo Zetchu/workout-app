@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import {
   ScrollView,
   StyleSheet,
@@ -8,18 +7,18 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import Header from './Header';
-import ExerciseCard from './ExerciseCard';
-import { fetchExercises, Exercise } from './workoutService';
+import Header from '../../src/components/Header';
+import ExerciseCard from '../../src/components/ExerciseCard';
+import { fetchExercises, Exercise } from '../../src/services/workoutService';
 
-const App: React.FC = () => {
+export default function CatalogScreen() {
+  const router = useRouter();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // Defaulting target filter to 'biceps' to load items out of the gate
   const [selectedMuscle, setSelectedMuscle] = useState<string>('biceps');
 
-  // Re-runs the request every single time selectedMuscle changes state
   useEffect(() => {
     void (async () => {
       setLoading(true);
@@ -40,7 +39,6 @@ const App: React.FC = () => {
     <View style={styles.container}>
       <Header title='Reps & Routines' />
 
-      {/* Quick horizontal filter tabs */}
       <View style={styles.filterBar}>
         {muscleGroups.map((muscle) => (
           <TouchableOpacity
@@ -81,27 +79,31 @@ const App: React.FC = () => {
           </Text>
 
           {exercises.map((item, index) => (
-            // Combining name and index for a reliable key string
-            <ExerciseCard
+            <TouchableOpacity
               key={`${item.name}-${index}`}
-              exercise={item}
-            />
+              onPress={() => {
+                router.push({
+                  pathname: `/routine/${encodeURIComponent(item.name)}`,
+                  params: {
+                    muscle: item.muscle,
+                    difficulty: item.difficulty,
+                    equipment: item.equipment,
+                    instructions: item.instructions,
+                  },
+                });
+              }}
+            >
+              <ExerciseCard exercise={item} />
+            </TouchableOpacity>
           ))}
         </ScrollView>
       )}
-
-      <StatusBar style='light' />
     </View>
   );
-};
-
-export default App;
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8fafc',
-  },
+  container: { flex: 1, backgroundColor: '#f8fafc' },
   filterBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -116,35 +118,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#f1f5f9',
   },
-  activeFilterTab: {
-    backgroundColor: '#0284c7',
-  },
+  activeFilterTab: { backgroundColor: '#0284c7' },
   filterText: {
     fontSize: 13,
     fontWeight: '500',
     color: '#475569',
     textTransform: 'capitalize',
   },
-  activeFilterText: {
-    color: '#ffffff',
-  },
-  centerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loadingText: {
-    marginTop: 12,
-    color: '#64748b',
-    fontSize: 15,
-  },
-  scrollArea: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-  },
+  activeFilterText: { color: '#ffffff' },
+  centerContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  loadingText: { marginTop: 12, color: '#64748b', fontSize: 15 },
+  scrollArea: { flex: 1 },
+  scrollContent: { paddingHorizontal: 16, paddingVertical: 16 },
   sectionTitle: {
     fontSize: 14,
     fontWeight: 'bold',
