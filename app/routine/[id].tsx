@@ -1,11 +1,11 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { Typography, Badge, colors, spacing, shapes } from '#shared';
 
 export default function ExerciseDetailScreen() {
   const { id, muscle, difficulty, equipment, instructions } =
@@ -17,73 +17,70 @@ export default function ExerciseDetailScreen() {
       style={styles.container}
       contentContainerStyle={styles.content}
     >
-      <Text style={styles.title}>{decodeURIComponent(id as string)}</Text>
+      <Typography variant="title" style={styles.title}>{decodeURIComponent(id as string)}</Typography>
 
       <View style={styles.badgeContainer}>
-        <Text style={styles.badge}>Muscle: {muscle}</Text>
-        <Text style={styles.badge}>Difficulty: {difficulty}</Text>
-        <Text style={styles.badge}>Equipment: {equipment}</Text>
+        <Badge
+          label={`Muscle: ${muscle}`}
+          backgroundColor={colors.border}
+          textColor={colors.textMain}
+        />
+        <Badge
+          label={`Difficulty: ${difficulty}`}
+          backgroundColor={colors.border}
+          textColor={colors.textMain}
+        />
+        <Badge
+          label={`Equipment: ${equipment}`}
+          backgroundColor={colors.border}
+          textColor={colors.textMain}
+        />
       </View>
 
-      <Text style={styles.subheading}>Instructions</Text>
-      <Text style={styles.instructionsText}>
+      <Typography variant="subtitle" style={styles.subheading}>Instructions</Typography>
+      <Typography variant="body" style={styles.instructionsText}>
         {instructions || 'No walkthrough listed.'}
-      </Text>
+      </Typography>
 
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => router.back()}
       >
-        <Text style={styles.backButtonText}>Return to Catalog</Text>
+        <Typography variant="body" style={styles.backButtonText}>Return to Catalog</Typography>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f8fafc' },
-  content: { padding: 20 },
+  container: { flex: 1, backgroundColor: colors.background },
+  content: { padding: spacing.xl },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1e293b',
-    marginBottom: 16,
+    color: colors.textMain,
+    marginBottom: spacing.lg,
   },
   badgeContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
-    marginBottom: 20,
-  },
-  badge: {
-    backgroundColor: '#e2e8f0',
-    color: '#334155',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    fontSize: 13,
-    fontWeight: '500',
-    textTransform: 'capitalize',
+    gap: spacing.sm,
+    marginBottom: spacing.xl,
   },
   subheading: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#64748b',
+    color: colors.textMuted,
     textTransform: 'uppercase',
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     letterSpacing: 0.5,
   },
   instructionsText: {
-    fontSize: 15,
-    color: '#334155',
+    color: colors.textMain,
     lineHeight: 24,
-    marginBottom: 30,
+    marginBottom: spacing.xxl,
   },
   backButton: {
-    backgroundColor: '#0284c7',
-    padding: 14,
-    borderRadius: 8,
+    backgroundColor: colors.brand,
+    padding: spacing.md,
+    borderRadius: shapes.radiusMedium,
     alignItems: 'center',
   },
-  backButtonText: { color: '#ffffff', fontWeight: 'bold', fontSize: 16 },
+  backButtonText: { color: colors.surface, fontWeight: 'bold' },
 });

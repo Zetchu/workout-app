@@ -1,0 +1,11 @@
+export const brand = '#0284c7';
+export const background = '#f8fafc';
+export const surface = '#ffffff';
+export const surfaceMuted = '#f1f5f9';
+export const border = '#e2e8f0';
+export const textMain = '#0f172a';
+export const textMuted = '#64748b';
+export const textLight = '#94a3b8';
+export const success = '#10b981';
+export const warning = '#f59e0b';
+export const danger = '#ef4444';

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View,
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import { Header } from '#shared';
+import { Header, Typography, colors, spacing, shapes } from '#shared';
 import { ExerciseCard, fetchExercises, type Exercise } from '#exercises';
 
 export default function CatalogScreen() {
@@ -48,14 +47,15 @@ export default function CatalogScreen() {
             ]}
             onPress={() => setSelectedMuscle(muscle)}
           >
-            <Text
+            <Typography
+              variant="caption"
               style={[
                 styles.filterText,
                 selectedMuscle === muscle && styles.activeFilterText,
               ]}
             >
               {muscle}
-            </Text>
+            </Typography>
           </TouchableOpacity>
         ))}
       </View>
@@ -64,18 +64,18 @@ export default function CatalogScreen() {
         <View style={styles.centerContainer}>
           <ActivityIndicator
             size='large'
-            color='#0284c7'
+            color={colors.brand}
           />
-          <Text style={styles.loadingText}>Fetching dynamic routine...</Text>
+          <Typography variant="body" style={styles.loadingText}>Fetching dynamic routine...</Typography>
         </View>
       ) : (
         <ScrollView
           style={styles.scrollArea}
           contentContainerStyle={styles.scrollContent}
         >
-          <Text style={styles.sectionTitle}>
+          <Typography variant="label" style={styles.sectionTitle}>
             Live {selectedMuscle} Catalog ({exercises.length})
-          </Text>
+          </Typography>
 
           {exercises.map((item, index) => (
             <TouchableOpacity
@@ -102,39 +102,34 @@ export default function CatalogScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f8fafc' },
+  container: { flex: 1, backgroundColor: colors.background },
   filterBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    paddingVertical: spacing.md,
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: colors.border,
   },
   filterTab: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    backgroundColor: '#f1f5f9',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: shapes.radiusPill,
+    backgroundColor: colors.surfaceMuted,
   },
-  activeFilterTab: { backgroundColor: '#0284c7' },
+  activeFilterTab: { backgroundColor: colors.brand },
   filterText: {
-    fontSize: 13,
     fontWeight: '500',
-    color: '#475569',
+    color: colors.textMuted,
     textTransform: 'capitalize',
   },
-  activeFilterText: { color: '#ffffff' },
+  activeFilterText: { color: colors.surface },
   centerContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  loadingText: { marginTop: 12, color: '#64748b', fontSize: 15 },
+  loadingText: { marginTop: spacing.md, color: colors.textMuted },
   scrollArea: { flex: 1 },
-  scrollContent: { paddingHorizontal: 16, paddingVertical: 16 },
+  scrollContent: { paddingHorizontal: spacing.lg, paddingVertical: spacing.lg },
   sectionTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    color: '#64748b',
-    marginBottom: 10,
+    color: colors.textMuted,
+    marginBottom: spacing.md,
   },
 });

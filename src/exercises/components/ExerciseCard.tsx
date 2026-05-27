@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Exercise } from '../services/workoutService';
+import { Card, Badge, Typography, colors, spacing } from '#shared';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -10,33 +11,37 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise }) => {
   // Dynamic color coding based on API Ninjas difficulty values
   const difficultyColor =
     exercise.difficulty === 'expert'
-      ? '#ef4444'
+      ? colors.danger
       : exercise.difficulty === 'intermediate'
-        ? '#f59e0b'
-        : '#10b981';
+        ? colors.warning
+        : colors.success;
 
   return (
-    <View style={styles.cardContainer}>
+    <Card style={styles.cardContainer}>
       <View style={styles.cardHeader}>
-        <Text style={styles.exerciseName}>{exercise.name}</Text>
-        <Text style={[styles.difficultyTag, { color: difficultyColor }]}>
-          {exercise.difficulty}
-        </Text>
+        <Typography variant="subtitle" style={styles.exerciseName}>{exercise.name}</Typography>
+        <Badge
+          label={exercise.difficulty}
+          backgroundColor={difficultyColor}
+          textColor={colors.surface}
+          style={styles.difficultyTag}
+        />
       </View>
 
       <View style={styles.tagsContainer}>
-        <Text style={styles.metaTag}>💪 {exercise.muscle}</Text>
-        <Text style={styles.metaTag}>⚙️ {exercise.type}</Text>
+        <Typography variant="caption" style={styles.metaTag}>💪 {exercise.muscle}</Typography>
+        <Typography variant="caption" style={styles.metaTag}>⚙️ {exercise.type}</Typography>
       </View>
 
-      <Text style={styles.instructionsTitle}>Instructions:</Text>
-      <Text
+      <Typography variant="body" style={styles.instructionsTitle}>Instructions:</Typography>
+      <Typography
+        variant="caption"
         style={styles.instructionsText}
         numberOfLines={3}
       >
         {exercise.instructions}
-      </Text>
-    </View>
+      </Typography>
+    </Card>
   );
 };
 
@@ -44,53 +49,41 @@ export default ExerciseCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
+    padding: spacing.lg,
+    marginVertical: spacing.sm,
   },
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   exerciseName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#0f172a',
+    color: colors.textMain,
     flex: 1,
   },
   difficultyTag: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
+    marginLeft: spacing.sm,
   },
   tagsContainer: {
     flexDirection: 'row',
-    marginBottom: 12,
+    marginBottom: spacing.md,
   },
   metaTag: {
-    fontSize: 13,
-    color: '#64748b',
-    marginRight: 16,
-    backgroundColor: '#f1f5f9',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    textTransform: 'capitalize',
+    color: colors.textMuted,
+    marginRight: spacing.lg,
+    backgroundColor: colors.surfaceMuted,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    borderRadius: spacing.xs,
   },
   instructionsTitle: {
-    fontSize: 14,
+    color: colors.textMain,
     fontWeight: '600',
-    color: '#334155',
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   instructionsText: {
-    fontSize: 13,
-    color: '#475569',
+    color: colors.textMuted,
     lineHeight: 18,
   },
 });
