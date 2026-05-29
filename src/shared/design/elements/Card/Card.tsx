@@ -4,17 +4,17 @@ import { colors, shapes } from '../../foundations';
 
 export const Card: React.FC<ViewProps> = ({ style, ...props }) => {
   return (
-    <View 
+    <View
       style={[
-        { 
-          backgroundColor: colors.surface, 
-          borderRadius: shapes.radiusMedium, 
-          borderWidth: 1, 
-          borderColor: colors.border 
-        }, 
-        style
-      ]} 
-      {...props} 
+        {
+          backgroundColor: colors.surface,
+          borderRadius: shapes.radiusMedium,
+          borderWidth: 1,
+          borderColor: colors.border,
+        },
+        style,
+      ]}
+      {...props}
     />
   );
 };

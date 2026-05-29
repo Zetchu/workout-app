@@ -1,10 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Typography, Badge, colors, spacing, shapes } from '#shared';
 
 export default function ExerciseDetailScreen() {
@@ -17,7 +12,12 @@ export default function ExerciseDetailScreen() {
       style={styles.container}
       contentContainerStyle={styles.content}
     >
-      <Typography variant="title" style={styles.title}>{decodeURIComponent(id as string)}</Typography>
+      <Typography
+        variant='title'
+        style={styles.title}
+      >
+        {decodeURIComponent(id as string)}
+      </Typography>
 
       <View style={styles.badgeContainer}>
         <Badge
@@ -37,8 +37,16 @@ export default function ExerciseDetailScreen() {
         />
       </View>
 
-      <Typography variant="subtitle" style={styles.subheading}>Instructions</Typography>
-      <Typography variant="body" style={styles.instructionsText}>
+      <Typography
+        variant='subtitle'
+        style={styles.subheading}
+      >
+        Instructions
+      </Typography>
+      <Typography
+        variant='body'
+        style={styles.instructionsText}
+      >
         {instructions || 'No walkthrough listed.'}
       </Typography>
 
@@ -46,7 +54,12 @@ export default function ExerciseDetailScreen() {
         style={styles.backButton}
         onPress={() => router.back()}
       >
-        <Typography variant="body" style={styles.backButtonText}>Return to Catalog</Typography>
+        <Typography
+          variant='body'
+          style={styles.backButtonText}
+        >
+          Return to Catalog
+        </Typography>
       </TouchableOpacity>
     </ScrollView>
   );

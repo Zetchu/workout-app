@@ -19,7 +19,12 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise }) => {
   return (
     <Card style={styles.cardContainer}>
       <View style={styles.cardHeader}>
-        <Typography variant="subtitle" style={styles.exerciseName}>{exercise.name}</Typography>
+        <Typography
+          variant='subtitle'
+          style={styles.exerciseName}
+        >
+          {exercise.name}
+        </Typography>
         <Badge
           label={exercise.difficulty}
           backgroundColor={difficultyColor}
@@ -29,13 +34,28 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise }) => {
       </View>
 
       <View style={styles.tagsContainer}>
-        <Typography variant="caption" style={styles.metaTag}>💪 {exercise.muscle}</Typography>
-        <Typography variant="caption" style={styles.metaTag}>⚙️ {exercise.type}</Typography>
+        <Typography
+          variant='caption'
+          style={styles.metaTag}
+        >
+          💪 {exercise.muscle}
+        </Typography>
+        <Typography
+          variant='caption'
+          style={styles.metaTag}
+        >
+          ⚙️ {exercise.type}
+        </Typography>
       </View>
 
-      <Typography variant="body" style={styles.instructionsTitle}>Instructions:</Typography>
       <Typography
-        variant="caption"
+        variant='body'
+        style={styles.instructionsTitle}
+      >
+        Instructions:
+      </Typography>
+      <Typography
+        variant='caption'
         style={styles.instructionsText}
         numberOfLines={3}
       >

@@ -48,7 +48,7 @@ export default function CatalogScreen() {
             onPress={() => setSelectedMuscle(muscle)}
           >
             <Typography
-              variant="caption"
+              variant='caption'
               style={[
                 styles.filterText,
                 selectedMuscle === muscle && styles.activeFilterText,
@@ -66,14 +66,22 @@ export default function CatalogScreen() {
             size='large'
             color={colors.brand}
           />
-          <Typography variant="body" style={styles.loadingText}>Fetching dynamic routine...</Typography>
+          <Typography
+            variant='body'
+            style={styles.loadingText}
+          >
+            Fetching dynamic routine...
+          </Typography>
         </View>
       ) : (
         <ScrollView
           style={styles.scrollArea}
           contentContainerStyle={styles.scrollContent}
         >
-          <Typography variant="label" style={styles.sectionTitle}>
+          <Typography
+            variant='label'
+            style={styles.sectionTitle}
+          >
             Live {selectedMuscle} Catalog ({exercises.length})
           </Typography>
 

@@ -10,8 +10,16 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
     <View style={styles.headerContainer}>
-      <Typography variant="header" style={styles.headerText}>{title}</Typography>
-      <Typography variant="caption" style={styles.subtitleText}>
+      <Typography
+        variant='header'
+        style={styles.headerText}
+      >
+        {title}
+      </Typography>
+      <Typography
+        variant='caption'
+        style={styles.subtitleText}
+      >
         Don't skip leg day. Let's get to work.
       </Typography>
     </View>

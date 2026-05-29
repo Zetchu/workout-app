@@ -8,12 +8,28 @@ interface TypographyProps extends TextProps {
   href?: any;
 }
 
-export const Typography: React.FC<TypographyProps> = ({ variant = 'body', style, href, ...props }) => {
+export const Typography: React.FC<TypographyProps> = ({
+  variant = 'body',
+  style,
+  href,
+  ...props
+}) => {
   const textStyle = typography[variant];
-  
+
   if (href) {
-    return <Link href={href} style={[textStyle, style]} {...(props as any)} />;
+    return (
+      <Link
+        href={href}
+        style={[textStyle, style]}
+        {...(props as any)}
+      />
+    );
   }
-  
-  return <Text style={[textStyle, style]} {...props} />;
+
+  return (
+    <Text
+      style={[textStyle, style]}
+      {...props}
+    />
+  );
 };

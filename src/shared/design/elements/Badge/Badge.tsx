@@ -9,31 +9,31 @@ interface BadgeProps extends ViewProps {
   textColor?: string;
 }
 
-export const Badge: React.FC<BadgeProps> = ({ 
-  label, 
-  backgroundColor, 
+export const Badge: React.FC<BadgeProps> = ({
+  label,
+  backgroundColor,
   textColor,
-  style, 
-  ...props 
+  style,
+  ...props
 }) => {
   return (
-    <View 
+    <View
       style={[
-        { 
-          backgroundColor, 
-          borderRadius: shapes.radiusPill, 
-          paddingHorizontal: spacing.md, 
-          paddingVertical: spacing.sm 
-        }, 
-        style
-      ]} 
+        {
+          backgroundColor,
+          borderRadius: shapes.radiusPill,
+          paddingHorizontal: spacing.md,
+          paddingVertical: spacing.sm,
+        },
+        style,
+      ]}
       {...props}
     >
-      <Typography 
-        variant="caption" 
+      <Typography
+        variant='caption'
         style={[
-          { fontWeight: '500', textTransform: 'capitalize' }, 
-          textColor ? { color: textColor } : undefined
+          { fontWeight: '500', textTransform: 'capitalize' },
+          textColor ? { color: textColor } : undefined,
         ]}
       >
         {label}
