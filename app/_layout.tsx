@@ -5,9 +5,11 @@ export default function RootLayout() {
   return (
     <>
       <Stack screenOptions={{ headerShown: false }}>
-        {/* The main interface points to our tabs layout group */}
+        <Stack.Screen name='index' />
+        <Stack.Screen name='onboarding' />
+
         <Stack.Screen name='(tabs)' />
-        {/* The routine sub-stack handles nested stack requirements */}
+
         <Stack.Screen
           name='routine'
           options={{

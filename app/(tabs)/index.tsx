@@ -31,7 +31,7 @@ export default function CatalogScreen() {
     })();
   }, [selectedMuscle]);
 
-  const muscleGroups = ['biceps', 'chest', 'back', 'quadriceps'];
+  const muscleGroups = ['biceps', 'chest', 'quadriceps'];
 
   return (
     <View style={styles.container}>

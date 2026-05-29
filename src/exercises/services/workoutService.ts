@@ -10,15 +10,22 @@ export interface Exercise {
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 const BASE_URL = 'https://api.api-ninjas.com/v1/exercises';
 
-/**
- * Fetches exercises from the API Ninjas endpoint.
- * Allows an optional muscle group filter (e.g., 'biceps', 'chest', 'back').
- */
 export async function fetchExercises(muscle?: string): Promise<Exercise[]> {
-  // If a muscle group is passed, append it as a query parameter
-  const url = muscle
-    ? `${BASE_URL}?muscle=${encodeURIComponent(muscle)}`
-    : BASE_URL;
+  // Safety check to ensure the .env variable is loaded
+  if (!API_KEY) {
+    throw new Error(
+      'API Key is missing! Make sure EXPO_PUBLIC_API_KEY is set in your .env file.',
+    );
+  }
+
+  // API Ninjas REQUIRES at least one query parameter.
+  // If no muscle is specified, we fallback to fetching all 'strength' exercises
+  // to provide a solid baseline of movements for muscle growth routines.
+  const query = muscle
+    ? `muscle=${encodeURIComponent(muscle)}`
+    : `type=strength`;
+
+  const url = `${BASE_URL}?${query}`;
 
   const response = await fetch(url, {
     method: 'GET',
@@ -29,12 +36,14 @@ export async function fetchExercises(muscle?: string): Promise<Exercise[]> {
   });
 
   if (!response.ok) {
+    // Read the actual error message from the API Ninjas server
+    const errorDetails = await response.text();
+
     throw new Error(
-      `Failed to fetch exercises: ${response.status} ${response.statusText}`,
+      `Failed to fetch exercises: ${response.status} - ${errorDetails}`,
     );
   }
 
-  // API Ninjas returns a raw JSON array of exercise objects
   const data = (await response.json()) as Exercise[];
   return data;
 }
