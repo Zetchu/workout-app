@@ -23,6 +23,14 @@ export default function TabsLayout() {
           tabBarIcon: ({ color }) => <Text style={{ color }}>🏋️</Text>,
         }}
       />
+      {/* Add the Profile tab here */}
+      <Tabs.Screen
+        name='profile'
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Text style={{ color }}>👤</Text>,
+        }}
+      />
       <Tabs.Screen
         name='settings'
         options={{
