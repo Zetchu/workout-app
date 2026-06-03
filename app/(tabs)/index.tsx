@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
-  ScrollView,
+  FlatList,
   StyleSheet,
   View,
   ActivityIndicator,
@@ -21,25 +21,64 @@ export default function CatalogScreen() {
   const router = useRouter();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [selectedMuscle, setSelectedMuscle] = useState<string>('biceps');
 
   // 1. Pass the fetched exercises to our abstracted search logic
   const { searchQuery, setSearchQuery, filteredExercises } =
     useExerciseSearch(exercises);
 
-  useEffect(() => {
-    void (async () => {
+  const loadData = useCallback(async (muscle: string, isRefresh = false) => {
+    if (isRefresh) {
+      setRefreshing(true);
+    } else {
       setLoading(true);
-      try {
-        const data = await fetchExercises(selectedMuscle);
-        setExercises(data);
-      } catch (error) {
-        console.error('Failed to load exercises from API Ninjas:', error);
-      } finally {
+    }
+    
+    try {
+      const data = await fetchExercises(muscle);
+      setExercises(data);
+    } catch (error) {
+      console.error('Failed to load exercises from API Ninjas:', error);
+    } finally {
+      if (isRefresh) {
+        setRefreshing(false);
+      } else {
         setLoading(false);
       }
-    })();
-  }, [selectedMuscle]);
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadData(selectedMuscle);
+  }, [selectedMuscle, loadData]);
+
+  const onRefresh = useCallback(() => {
+    void loadData(selectedMuscle, true);
+  }, [selectedMuscle, loadData]);
+
+  const onEndReached = useCallback(() => {
+    console.log('Reached end of list');
+    // Reserved for pagination implementation if API allows
+  }, []);
+
+  const renderItem = useCallback(({ item }: { item: Exercise }) => (
+    <TouchableOpacity
+      onPress={() => {
+        router.push({
+          pathname: `/routine/${encodeURIComponent(item.name)}`,
+          params: {
+            muscle: item.muscle,
+            difficulty: item.difficulty,
+            equipment: item.equipment,
+            instructions: item.instructions,
+          },
+        });
+      }}
+    >
+      <ExerciseCard exercise={item} />
+    </TouchableOpacity>
+  ), [router]);
 
   const muscleGroups = ['biceps', 'chest', 'quadriceps'];
 
@@ -97,44 +136,32 @@ export default function CatalogScreen() {
           </Typography>
         </View>
       ) : (
-        <ScrollView
+        <FlatList
+          data={filteredExercises}
           style={styles.scrollArea}
           contentContainerStyle={styles.scrollContent}
-        >
-          <Typography
-            variant='label'
-            style={styles.sectionTitle}
-          >
-            {/* Displaying length of the filtered list */}
-            Live {selectedMuscle} Catalog ({filteredExercises.length})
-          </Typography>
-
-          {/* 3. Render the filtered results, not the raw fetch results */}
-          {filteredExercises.map((item, index) => (
-            <TouchableOpacity
-              key={`${item.name}-${index}`}
-              onPress={() => {
-                router.push({
-                  pathname: `/routine/${encodeURIComponent(item.name)}`,
-                  params: {
-                    muscle: item.muscle,
-                    difficulty: item.difficulty,
-                    equipment: item.equipment,
-                    instructions: item.instructions,
-                  },
-                });
-              }}
+          keyExtractor={(item, index) => `${item.name}-${index}`}
+          renderItem={renderItem}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          onEndReached={onEndReached}
+          onEndReachedThreshold={0.5}
+          ListHeaderComponent={
+            <Typography
+              variant='label'
+              style={styles.sectionTitle}
             >
-              <ExerciseCard exercise={item} />
-            </TouchableOpacity>
-          ))}
-
-          {!loading && filteredExercises.length === 0 && (
-            <Typography style={styles.emptyText}>
-              No exercises match your search.
+              Live {selectedMuscle} Catalog ({filteredExercises.length})
             </Typography>
-          )}
-        </ScrollView>
+          }
+          ListEmptyComponent={
+            !loading ? (
+              <Typography style={styles.emptyText}>
+                No exercises match your search.
+              </Typography>
+            ) : null
+          }
+        />
       )}
     </View>
   );
