@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProfileScreen } from '../../src/features/profile';
+import { ProfileScreen } from '#profile';
 
 export default function ProfileRoute() {
   return <ProfileScreen />;

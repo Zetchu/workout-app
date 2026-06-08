@@ -6,7 +6,9 @@
     "#shared": "./src/shared/index.ts",
     "#shared/*": "./src/shared/*",
     "#exercises": "./src/features/exercises/index.ts",
-    "#exercises/*": "./src/features/exercises/*"
+    "#exercises/*": "./src/features/exercises/*",
+    "#profile": "./src/features/profile/index.ts",
+    "#profile/*": "./src/features/profile/*"
   },
   "jest": {
     "preset": "jest-expo"

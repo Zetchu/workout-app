@@ -1,6 +1,6 @@
 import { Redirect } from 'expo-router';
 import { View, ActivityIndicator } from 'react-native';
-import { useProfile } from '../src/features/profile/useProfile';
+import { useProfile } from '../features/profile/useProfile';
 
 export default function Index() {
   const { profile, isLoading } = useProfile();

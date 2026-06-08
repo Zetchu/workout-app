@@ -11,12 +11,9 @@ import {
 import { useRouter } from 'expo-router';
 
 import { Header, Typography, colors, spacing, shapes } from '#shared';
-import {
-  ExerciseCard,
-  fetchExercises,
-  type Exercise,
-  useExerciseSearch,
-} from '../../index'; // Clean relative access inside the feature domain
+import ExerciseCard from '../ExerciseCard';
+import { useExerciseSearch } from '../../services/useExerciseSearch';
+import { fetchExercises, type Exercise } from '../../services/workoutService';
 
 export default function CatalogScreen() {
   const router = useRouter();
