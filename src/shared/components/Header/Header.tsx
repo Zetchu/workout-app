@@ -1,6 +1,8 @@
-import { Typography } from '#shared/design/elements/index.js';
+// src/shared/components/Header/Header.tsx
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+// Cleanly import everything you need from your shared root alias
+import { Typography, colors, spacing } from '#shared';
 
 interface HeaderProps {
   title: string;

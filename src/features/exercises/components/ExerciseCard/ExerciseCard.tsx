@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Exercise } from '../services/workoutService';
+import { Exercise } from '../../services/workoutService';
 import { Card, Badge, Typography, colors, spacing } from '#shared';
 
 interface ExerciseCardProps {

@@ -1,5 +1,4 @@
 export * from './design/foundations';
 export * from './design/elements';
 export { default as Header } from './components/Header/Header';
-
-export { useSettings } from './settings/useSettings';
+export { SettingsScreen, useSettings } from './settings';
