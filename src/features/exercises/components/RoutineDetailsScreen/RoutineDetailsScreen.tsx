@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { Header, Typography, Card, colors, spacing, shapes } from '#shared';
 
 export default function RoutineDetailsScreen() {
-  const router = useRouter();
   const { id, muscle, difficulty, equipment, instructions } =
     useLocalSearchParams<{
       id: string;
@@ -16,19 +15,28 @@ export default function RoutineDetailsScreen() {
 
   return (
     <View style={styles.container}>
-      <Header title={id ? decodeURIComponent(id) : 'Exercise Details'} />
+      <Header />
 
       <ScrollView
         style={styles.scrollArea}
         contentContainerStyle={styles.scrollContent}
       >
+        <Typography
+          variant='display'
+          style={styles.mainTitle}
+        >
+          {id ? decodeURIComponent(id) : 'Exercise Details'}
+        </Typography>
+
         <Card style={styles.card}>
           <Typography
             variant='label'
             style={styles.sectionTitle}
           >
-            Target Domain
+            TARGET DOMAIN
           </Typography>
+          <View style={styles.divider} />
+
           <Typography
             variant='body'
             style={styles.valueText}
@@ -59,8 +67,10 @@ export default function RoutineDetailsScreen() {
             variant='label'
             style={styles.sectionTitle}
           >
-            Execution Instructions
+            EXECUTION INSTRUCTIONS
           </Typography>
+          <View style={styles.divider} />
+
           <Typography
             variant='body'
             style={styles.instructionsText}
@@ -82,26 +92,41 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: spacing.lg,
+    paddingHorizontal: spacing.containerMargin,
+    paddingBottom: spacing.xl,
     gap: spacing.md,
   },
+  mainTitle: {
+    fontWeight: '900',
+    color: colors.textMain,
+    marginTop: spacing.sm,
+    marginBottom: spacing.xs,
+  },
   card: {
-    padding: spacing.lg,
+    padding: 20,
   },
   sectionTitle: {
     color: colors.brand,
-    marginBottom: spacing.sm,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.border,
+    marginVertical: spacing.sm,
   },
   valueText: {
     color: colors.textMain,
-    marginVertical: spacing.xs / 2,
+    marginVertical: spacing.xs,
   },
   capitalize: {
     textTransform: 'capitalize',
+    color: colors.textMuted,
     fontWeight: '600',
   },
   instructionsText: {
-    color: colors.textMain,
-    lineHeight: 22,
+    color: colors.textMuted,
+    lineHeight: 24,
+    fontSize: 15,
   },
 });

@@ -1,18 +1,21 @@
+import React from 'react';
 import { Tabs } from 'expo-router';
-import { View, Text } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { colors } from '#shared';
 
-export default function TabsLayout() {
+export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#0284c7',
-        tabBarInactiveTintColor: '#64748b',
+        tabBarActiveTintColor: colors.brand, // Electric Lime text/icons
+        tabBarInactiveTintColor: colors.textMuted, // Subdued slate gray for unselected states
         tabBarStyle: {
-          backgroundColor: '#ffffff',
-          borderTopWidth: 1,
-          borderTopColor: '#e2e8f0',
-          paddingBottom: 4,
+          backgroundColor: '#0E0E0E', // Pure dark matching your deepest container layer
+          borderTopColor: '#1F2020', // Subtle top perimeter line separating the screens
+          height: 64,
+          paddingBottom: 10,
+          paddingTop: 8,
         },
       }}
     >
@@ -20,22 +23,52 @@ export default function TabsLayout() {
         name='index'
         options={{
           title: 'Catalog',
-          tabBarIcon: ({ color }) => <Text style={{ color }}>🏋️</Text>,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'barbell' : 'barbell-outline'}
+              size={22}
+              color={color}
+            />
+          ),
         }}
       />
-      {/* Add the Profile tab here */}
+      <Tabs.Screen
+        name='favorites'
+        options={{
+          title: 'Favorites',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'heart' : 'heart-outline'}
+              size={22}
+              color={color}
+            />
+          ),
+        }}
+      />
       <Tabs.Screen
         name='profile'
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <Text style={{ color }}>👤</Text>,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'person' : 'person-outline'}
+              size={22}
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name='settings'
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <Text style={{ color }}>⚙️</Text>,
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'settings' : 'settings-outline'}
+              size={22}
+              color={color}
+            />
+          ),
         }}
       />
     </Tabs>

@@ -1,12 +1,22 @@
-import { TextStyle } from 'react-native';
-
-export const header: TextStyle = { fontSize: 26, fontWeight: 'bold' };
-export const title: TextStyle = { fontSize: 24, fontWeight: 'bold' };
-export const subtitle: TextStyle = { fontSize: 18, fontWeight: '600' };
-export const body: TextStyle = { fontSize: 15 };
-export const caption: TextStyle = { fontSize: 13 };
-export const label: TextStyle = {
-  fontSize: 12,
-  fontWeight: 'bold',
-  textTransform: 'uppercase',
+export const typographyStyles = {
+  display: {
+    fontSize: 36,
+    fontWeight: '800' as const,
+    letterSpacing: -0.72,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '700' as const,
+    letterSpacing: -0.24,
+  },
+  body: {
+    fontSize: 16,
+    fontWeight: '400' as const,
+    lineHeight: 24,
+  },
+  label: {
+    fontSize: 12,
+    fontWeight: '600' as const,
+    letterSpacing: 0.6,
+  },
 };

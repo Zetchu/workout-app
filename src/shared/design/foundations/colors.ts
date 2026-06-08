@@ -1,11 +1,17 @@
-export const brand = '#0284c7';
-export const background = '#f8fafc';
-export const surface = '#ffffff';
-export const surfaceMuted = '#f1f5f9';
-export const border = '#e2e8f0';
-export const textMain = '#0f172a';
-export const textMuted = '#64748b';
-export const textLight = '#94a3b8';
-export const success = '#10b981';
-export const warning = '#f59e0b';
-export const danger = '#ef4444';
+export const colors = {
+  background: '#131313', // Deep Charcoal Base
+  surface: '#242424', // Studio Gray Cards
+  surfaceMuted: '#1A1A1A', // Darker Inputs/Toggles
+  surfaceBright: '#393939',
+  border: '#333333', // Subtle Dark Outlines
+
+  brand: '#CCFF00', // Electric Lime Accent
+  brandMuted: 'rgba(204, 255, 0, 0.15)',
+
+  textMain: '#FFFFFF', // Clean White Primary Text
+  textMuted: '#A3A3A3', // Neutral Gray Subtitles
+  textDim: '#64748b',
+
+  error: '#FFB4AB',
+  onError: '#690005',
+};

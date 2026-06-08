@@ -1,109 +1,132 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import {
+  Card,
+  Typography,
+  colors,
+  spacing,
+  shapes,
+  useFavorites,
+} from '#shared';
 import { Exercise } from '../../services/workoutService';
-import { Card, Badge, Typography, colors, spacing } from '#shared';
 
-interface ExerciseCardProps {
-  exercise: Exercise;
-}
-
-const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise }) => {
-  // Dynamic color coding based on API Ninjas difficulty values
-  const difficultyColor =
-    exercise.difficulty === 'expert'
-      ? colors.danger
-      : exercise.difficulty === 'intermediate'
-        ? colors.warning
-        : colors.success;
+export default function ExerciseCard({ exercise }: { exercise: Exercise }) {
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const favorited = isFavorite(exercise.name);
 
   return (
-    <Card style={styles.cardContainer}>
-      <View style={styles.cardHeader}>
-        <Typography
-          variant='subtitle'
-          style={styles.exerciseName}
+    <Card style={styles.cardSpacing}>
+      <View style={styles.headerRow}>
+        <View style={styles.textBlock}>
+          <Typography
+            variant='title'
+            style={styles.nameText}
+          >
+            {exercise.name}
+          </Typography>
+          <Typography
+            variant='body'
+            style={styles.descText}
+            numberOfLines={2}
+          >
+            {exercise.instructions ||
+              'High-performance routine for physiological adaptations.'}
+          </Typography>
+        </View>
+
+        {/* INTERACTIVE HEART CELL CAPABILITY */}
+        <TouchableOpacity
+          onPress={() => void toggleFavorite(exercise)}
+          hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
         >
-          {exercise.name}
-        </Typography>
-        <Badge
-          label={exercise.difficulty}
-          backgroundColor={difficultyColor}
-          textColor={colors.surface}
-          style={styles.difficultyTag}
-        />
+          <Ionicons
+            name={favorited ? 'heart' : 'heart-outline'}
+            size={22}
+            color={favorited ? colors.brand : colors.textMuted}
+          />
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.tagsContainer}>
-        <Typography
-          variant='caption'
-          style={styles.metaTag}
-        >
-          💪 {exercise.muscle}
-        </Typography>
-        <Typography
-          variant='caption'
-          style={styles.metaTag}
-        >
-          ⚙️ {exercise.type}
-        </Typography>
-      </View>
+      <View style={styles.metaRow}>
+        <View style={styles.chipRow}>
+          <View style={styles.chip}>
+            <Ionicons
+              name='barbell-outline'
+              size={12}
+              color={colors.brand}
+            />
+            <Typography
+              variant='label'
+              style={styles.chipText}
+            >
+              {exercise.muscle}
+            </Typography>
+          </View>
+          <View style={styles.chip}>
+            <Ionicons
+              name='shield-checkmark-outline'
+              size={12}
+              color={colors.brand}
+            />
+            <Typography
+              variant='label'
+              style={styles.chipText}
+            >
+              {exercise.difficulty}
+            </Typography>
+          </View>
+        </View>
 
-      <Typography
-        variant='body'
-        style={styles.instructionsTitle}
-      >
-        Instructions:
-      </Typography>
-      <Typography
-        variant='caption'
-        style={styles.instructionsText}
-        numberOfLines={3}
-      >
-        {exercise.instructions}
-      </Typography>
+        <View style={styles.startButton}>
+          <Typography
+            variant='label'
+            style={styles.btnText}
+          >
+            START
+          </Typography>
+        </View>
+      </View>
     </Card>
   );
-};
-
-export default ExerciseCard;
+}
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    padding: spacing.lg,
-    marginVertical: spacing.sm,
+  cardSpacing: { marginBottom: spacing.md, padding: 16 },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
-  cardHeader: {
+  textBlock: { flex: 1, paddingRight: spacing.sm },
+  nameText: { fontSize: 18, fontWeight: '800', marginBottom: 4 },
+  descText: { color: colors.textMuted, fontSize: 13, lineHeight: 18 },
+  metaRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.sm,
+    marginTop: spacing.md,
   },
-  exerciseName: {
-    color: colors.textMain,
-    flex: 1,
-  },
-  difficultyTag: {
-    marginLeft: spacing.sm,
-  },
-  tagsContainer: {
+  chipRow: { flexDirection: 'row', gap: spacing.base },
+  chip: {
     flexDirection: 'row',
-    marginBottom: spacing.md,
-  },
-  metaTag: {
-    color: colors.textMuted,
-    marginRight: spacing.lg,
+    alignItems: 'center',
+    gap: 4,
     backgroundColor: colors.surfaceMuted,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs,
-    borderRadius: spacing.xs,
+    paddingHorizontal: spacing.base,
+    paddingVertical: 6,
+    borderRadius: shapes.radiusPill,
   },
-  instructionsTitle: {
-    color: colors.textMain,
-    fontWeight: '600',
-    marginBottom: spacing.xs,
-  },
-  instructionsText: {
+  chipText: {
     color: colors.textMuted,
-    lineHeight: 18,
+    textTransform: 'capitalize',
+    fontSize: 11,
   },
+  startButton: {
+    backgroundColor: colors.brand,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: shapes.radiusSmall,
+  },
+  btnText: { color: colors.background, fontWeight: '900' },
 });

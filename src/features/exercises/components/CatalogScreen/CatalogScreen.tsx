@@ -6,9 +6,11 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   TextInput,
+  ScrollView,
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import {
   Header,
@@ -29,24 +31,21 @@ export default function CatalogScreen() {
   const router = useRouter();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [selectedMuscle, setSelectedMuscle] = useState<string>('biceps');
-
   const { searchQuery, setSearchQuery, filteredExercises } =
     useExerciseSearch(exercises);
 
-  // --- NATIVE SHAKE LOGIC ---
+  // --- NATIVE SHAKE-TO-SUGGEST LOGIC ---
   const handleShakeEvent = useCallback(() => {
     if (filteredExercises.length === 0) return;
 
-    // Select a random exercise from the currently loaded list
+    // Pick a random workout from the currently filtered list
     const randomIndex = Math.floor(Math.random() * filteredExercises.length);
     const randomExercise = filteredExercises[randomIndex];
 
-    // Trigger physical vibration
+    // Trigger physical success vibration pulse
     void triggerSuccessFeedback();
 
-    // Alert user of their random recommendation
     Alert.alert(
       '🏋️ Shake Suggestion!',
       `How about trying: "${randomExercise.name}"?`,
@@ -70,100 +69,51 @@ export default function CatalogScreen() {
     );
   }, [filteredExercises, router]);
 
-  // Hook into accelerometer stream
+  // Hook into native accelerometer streaming channels
   useShakeSensor(handleShakeEvent);
-  // -------------------------
 
-  const loadData = useCallback(async (muscle: string, isRefresh = false) => {
-    if (isRefresh) {
-      setRefreshing(true);
-    } else {
-      setLoading(true);
-    }
-    try {
-      const data = await fetchExercises(muscle);
-      setExercises(data);
-    } catch (error) {
-      console.error('Failed to load exercises:', error);
-    } finally {
-      if (isRefresh) {
-        setRefreshing(false);
-      } else {
-        setLoading(false);
-      }
-    }
-  }, []);
-
+  // --- API DATA INGESTION LIFECYCLE ---
   useEffect(() => {
-    void loadData(selectedMuscle);
-  }, [selectedMuscle, loadData]);
+    let active = true;
+    void (async () => {
+      setLoading(true);
+      try {
+        const data = await fetchExercises(selectedMuscle);
+        if (active) setExercises(data);
+      } catch (err) {
+        console.error('API Ingestion Error:', err);
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [selectedMuscle]);
 
-  const onRefresh = useCallback(() => {
-    void loadData(selectedMuscle, true);
-  }, [selectedMuscle, loadData]);
-
-  const onEndReached = useCallback(() => {
-    console.log('Reached end of list');
-  }, []);
-
-  const renderItem = useCallback(
-    ({ item }: { item: Exercise }) => (
-      <TouchableOpacity
-        onPress={() => {
-          void triggerLightImpact(); // Add clean haptic response on press
-          router.push({
-            pathname: `/routine/${encodeURIComponent(item.name)}`,
-            params: {
-              muscle: item.muscle,
-              difficulty: item.difficulty,
-              equipment: item.equipment,
-              instructions: item.instructions,
-            },
-          });
-        }}
-      >
-        <ExerciseCard exercise={item} />
-      </TouchableOpacity>
-    ),
-    [router],
-  );
-
-  const muscleGroups = ['biceps', 'chest', 'quadriceps'];
+  const muscleGroups = [
+    { id: 'biceps', label: 'Biceps', icon: 'flame' as const },
+    { id: 'chest', label: 'Chest', icon: 'fitness' as const },
+    { id: 'lats', label: 'Back', icon: 'body' as const },
+    { id: 'quadriceps', label: 'Legs', icon: 'walk' as const },
+    { id: 'triceps', label: 'Triceps', icon: 'barbell' as const },
+  ];
 
   return (
     <View style={styles.container}>
-      <Header title='Reps & Routines' />
+      <Header />
 
-      <View style={styles.filterBar}>
-        {muscleGroups.map((muscle) => (
-          <TouchableOpacity
-            key={muscle}
-            style={[
-              styles.filterTab,
-              selectedMuscle === muscle && styles.activeFilterTab,
-            ]}
-            onPress={() => {
-              void triggerLightImpact(); // Trigger haptic on tab change
-              setSelectedMuscle(muscle);
-            }}
-          >
-            <Typography
-              variant='caption'
-              style={[
-                styles.filterText,
-                selectedMuscle === muscle && styles.activeFilterText,
-              ]}
-            >
-              {muscle}
-            </Typography>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      <View style={styles.searchContainer}>
+      {/* Modern High-Contrast Search Bar */}
+      <View style={styles.searchWrapper}>
+        <Ionicons
+          name='search'
+          size={18}
+          color={colors.textMuted}
+          style={styles.searchIcon}
+        />
         <TextInput
           style={styles.searchInput}
-          placeholder={`Search ${selectedMuscle} exercises...`}
+          placeholder={`Search ${selectedMuscle} routines...`}
           placeholderTextColor={colors.textMuted}
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -172,117 +122,171 @@ export default function CatalogScreen() {
         />
       </View>
 
-      {loading ? (
-        <View style={styles.centerContainer}>
-          <ActivityIndicator
-            size='large'
-            color={colors.brand}
-          />
-          <Typography
-            variant='body'
-            style={styles.loadingText}
-          >
-            Fetching dynamic routine...
-          </Typography>
-        </View>
-      ) : (
-        <FlatList
-          data={filteredExercises}
-          style={styles.scrollArea}
-          contentContainerStyle={styles.scrollContent}
-          keyExtractor={(item, index) => `${item.name}-${index}`}
-          renderItem={renderItem}
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          onEndReached={onEndReached}
-          onEndReachedThreshold={0.5}
-          ListHeaderComponent={
-            <View>
+      {/* Main Routine List Controller */}
+      <FlatList
+        data={filteredExercises}
+        keyExtractor={(item, idx) => `${item.name}-${idx}`}
+        contentContainerStyle={styles.scrollContent}
+        ListHeaderComponent={
+          <View>
+            <Typography
+              variant='title'
+              style={styles.sectionHeader}
+            >
+              Muscle Targets
+            </Typography>
+
+            {/* Premium Scrollable Muscle Selector Tabs */}
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.categoryScroll}
+            >
+              {muscleGroups.map((cat) => {
+                const isSelected = selectedMuscle === cat.id;
+                return (
+                  <TouchableOpacity
+                    key={cat.id}
+                    style={[
+                      styles.categoryCard,
+                      isSelected && styles.activeCategoryCard,
+                    ]}
+                    onPress={() => {
+                      void triggerLightImpact(); // Physical haptic feedback on toggle
+                      setSelectedMuscle(cat.id);
+                    }}
+                  >
+                    <Ionicons
+                      name={cat.icon}
+                      size={20}
+                      color={isSelected ? colors.background : colors.brand}
+                    />
+                    <Typography
+                      style={[
+                        styles.catLabel,
+                        isSelected && styles.activeCatLabel,
+                      ]}
+                    >
+                      {cat.label}
+                    </Typography>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+
+            {/* Hardware Capability Coach Callout */}
+            <View style={styles.tipBox}>
               <Typography
                 variant='label'
-                style={styles.sectionTitle}
-              >
-                Live {selectedMuscle} Catalog ({filteredExercises.length})
-              </Typography>
-              <Typography
-                variant='caption'
                 style={styles.shakeTip}
               >
-                📱 Shake phone to pick random workout suggestion!
+                📱 SHAKE YOUR PHONE TO PICK A RANDOM WORKOUT
               </Typography>
             </View>
-          }
-          ListEmptyComponent={
-            !loading ? (
-              <Typography style={styles.emptyText}>
-                No exercises match your search.
-              </Typography>
-            ) : null
-          }
-        />
-      )}
+
+            <Typography
+              variant='title'
+              style={[styles.sectionHeader, { marginTop: spacing.md }]}
+            >
+              Discovered Movements ({filteredExercises.length})
+            </Typography>
+          </View>
+        }
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => {
+              void triggerLightImpact(); // Clean tactile tick on item select
+              router.push({
+                pathname: `/routine/${encodeURIComponent(item.name)}`,
+                params: {
+                  muscle: item.muscle,
+                  difficulty: item.difficulty,
+                  equipment: item.equipment,
+                  instructions: item.instructions,
+                },
+              });
+            }}
+          >
+            <ExerciseCard exercise={item} />
+          </TouchableOpacity>
+        )}
+        ListEmptyComponent={
+          loading ? (
+            <ActivityIndicator
+              size='large'
+              color={colors.brand}
+              style={styles.loader}
+            />
+          ) : (
+            <Typography style={styles.emptyText}>
+              No matching muscle routines found.
+            </Typography>
+          )
+        }
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  filterBar: {
+  searchWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: spacing.md,
-    backgroundColor: colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  filterTab: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: shapes.radiusPill,
+    alignItems: 'center',
     backgroundColor: colors.surfaceMuted,
-  },
-  activeFilterTab: { backgroundColor: colors.brand },
-  filterText: {
-    fontWeight: '500',
-    color: colors.textMuted,
-    textTransform: 'capitalize',
-  },
-  activeFilterText: { color: colors.surface },
-  searchContainer: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    backgroundColor: colors.background,
-  },
-  searchInput: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
+    marginHorizontal: spacing.containerMargin,
     borderRadius: shapes.radiusMedium,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
-    fontSize: 16,
-    color: colors.textMain,
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: spacing.xs,
   },
-  emptyText: {
-    textAlign: 'center',
-    marginTop: spacing.xl,
-    color: colors.textMuted,
-  },
-  centerContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  loadingText: { marginTop: spacing.md, color: colors.textMuted },
-  scrollArea: { flex: 1 },
+  searchIcon: { marginRight: spacing.base },
+  searchInput: { flex: 1, height: 48, color: colors.textMain, fontSize: 14 },
   scrollContent: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.containerMargin,
     paddingBottom: spacing.xl * 2,
   },
-  sectionTitle: {
-    color: colors.textMuted,
-    marginBottom: spacing.xs,
+  sectionHeader: { marginVertical: spacing.md, fontWeight: '800' },
+  categoryScroll: { gap: spacing.sm, paddingRight: spacing.lg },
+  categoryCard: {
+    flexDirection: 'row',
+    backgroundColor: colors.surface,
+    borderRadius: shapes.radiusLarge,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    alignItems: 'center',
+    gap: spacing.base,
+    borderWidth: 1,
+    borderColor: colors.border,
+    minWidth: 105,
+    justifyContent: 'center',
+  },
+  activeCategoryCard: {
+    backgroundColor: colors.brand,
+    borderColor: colors.brand,
+  },
+  catLabel: { fontWeight: '700', fontSize: 13, color: colors.textMain },
+  activeCatLabel: { color: colors.background },
+  tipBox: {
+    marginTop: spacing.lg,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: shapes.radiusSmall,
+    padding: spacing.md,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   shakeTip: {
     color: colors.brand,
-    fontWeight: '500',
-    marginBottom: spacing.md,
+    fontWeight: '700',
+    fontSize: 11,
+    letterSpacing: 0.5,
   },
+  emptyText: {
+    color: colors.textMuted,
+    textAlign: 'center',
+    marginTop: spacing.xl,
+  },
+  loader: { marginTop: spacing.xl * 2 },
 });

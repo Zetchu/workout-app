@@ -1,7 +1,9 @@
-export const xs = 4;
-export const sm = 8;
-export const md = 12;
-export const lg = 16;
-export const xl = 20;
-export const xxl = 30;
-export const xxxl = 40;
+export const spacing = {
+  xs: 4,
+  base: 8,
+  sm: 12,
+  md: 16,
+  lg: 24,
+  xl: 40,
+  containerMargin: 20,
+};

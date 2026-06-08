@@ -1,50 +1,54 @@
-// src/shared/components/Header/Header.tsx
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-// Cleanly import everything you need from your shared root alias
-import { Typography, colors, spacing } from '#shared';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-interface HeaderProps {
-  title: string;
-}
+import Typography from '../../design/elements/Typography';
+import { colors } from '../../design/foundations/colors';
+import { spacing } from '../../design/foundations/spacing';
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+export default function Header() {
   return (
     <View style={styles.headerContainer}>
-      <Typography
-        variant='header'
-        style={styles.headerText}
-      >
-        {title}
-      </Typography>
-      <Typography
-        variant='caption'
-        style={styles.subtitleText}
-      >
-        Don't skip leg day. Let's get to work.
-      </Typography>
+      <View style={styles.brandRow}>
+        <Ionicons
+          name='flash'
+          size={22}
+          color={colors.brand}
+        />
+        <Typography
+          variant='title'
+          style={styles.brandText}
+        >
+          FORGE FITNESS
+        </Typography>
+      </View>
+      <Ionicons
+        name='notifications-outline'
+        size={22}
+        color={colors.textMain}
+      />
     </View>
   );
-};
-
-export default Header;
+}
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: spacing.xxxl,
-    paddingBottom: spacing.lg,
-    width: '100%',
-    backgroundColor: '#1e293b',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: '#38bdf8',
+    justifyContent: 'space-between',
+    paddingTop: spacing.xl + 10,
+    paddingBottom: spacing.md,
+    paddingHorizontal: spacing.containerMargin,
+    backgroundColor: colors.background,
   },
-  headerText: {
-    color: colors.surface,
+  brandRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
   },
-  subtitleText: {
-    color: colors.textLight,
-    marginTop: spacing.xs,
+  brandText: {
+    color: colors.brand,
+    fontWeight: '900',
+    letterSpacing: -0.5,
   },
 });

@@ -1,35 +1,38 @@
 import React from 'react';
-import { Text, TextProps } from 'react-native';
-import { Link } from 'expo-router';
-import { typography } from '../../foundations';
+// Import StyleProp and TextStyle together
+import { Text, StyleSheet, TextStyle, StyleProp } from 'react-native';
+import { colors, typographyStyles } from '../../foundations/index';
 
-interface TypographyProps extends TextProps {
-  variant?: keyof typeof typography;
-  href?: any;
+interface TypographyProps {
+  variant?: 'display' | 'title' | 'body' | 'label';
+  style?: StyleProp<TextStyle>; // Updated to accept native array conditions
+  children: React.ReactNode;
+  numberOfLines?: number;
 }
 
-export const Typography: React.FC<TypographyProps> = ({
+export default function Typography({
   variant = 'body',
   style,
-  href,
-  ...props
-}) => {
-  const textStyle = typography[variant];
-
-  if (href) {
-    return (
-      <Link
-        href={href}
-        style={[textStyle, style]}
-        {...(props as any)}
-      />
-    );
-  }
-
+  children,
+  numberOfLines,
+}: TypographyProps) {
   return (
     <Text
-      style={[textStyle, style]}
-      {...props}
-    />
+      style={[styles.base, styles[variant], style]}
+      numberOfLines={numberOfLines}
+    >
+      {children}
+    </Text>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  base: {
+    color: colors.textMain,
+    fontFamily: 'System',
+  },
+  display: typographyStyles.display,
+  title: typographyStyles.title,
+  body: typographyStyles.body,
+  label: typographyStyles.label,
+});

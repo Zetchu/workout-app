@@ -1,3 +1,3 @@
-export * from './Typography';
-export * from './Card';
-export * from './Badge';
+export { default as Badge } from './Badge';
+export { default as Card } from './Card';
+export { default as Typography } from './Typography';
