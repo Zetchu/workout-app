@@ -1,7 +1,6 @@
+import { Typography } from '#shared/design/elements/index.js';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Typography } from '../design/elements';
-import { colors, spacing } from '../design/foundations';
 
 interface HeaderProps {
   title: string;

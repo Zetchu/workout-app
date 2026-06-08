@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Typography, Card } from '../src/shared'; // Adjust imports as needed
-import { useProfile } from '../src/shared/profile/useProfile';
+import { useProfile } from '../src/features/profile/useProfile';
 
 export default function OnboardingScreen() {
   const router = useRouter();

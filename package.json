@@ -5,8 +5,8 @@
   "imports": {
     "#shared": "./src/shared/index.ts",
     "#shared/*": "./src/shared/*",
-    "#exercises": "./src/exercises/index.ts",
-    "#exercises/*": "./src/exercises/*"
+    "#exercises": "./src/features/exercises/index.ts",
+    "#exercises/*": "./src/features/exercises/*"
   },
   "jest": {
     "preset": "jest-expo"

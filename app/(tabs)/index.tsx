@@ -34,7 +34,7 @@ export default function CatalogScreen() {
     } else {
       setLoading(true);
     }
-    
+
     try {
       const data = await fetchExercises(muscle);
       setExercises(data);
@@ -62,23 +62,26 @@ export default function CatalogScreen() {
     // Reserved for pagination implementation if API allows
   }, []);
 
-  const renderItem = useCallback(({ item }: { item: Exercise }) => (
-    <TouchableOpacity
-      onPress={() => {
-        router.push({
-          pathname: `/routine/${encodeURIComponent(item.name)}`,
-          params: {
-            muscle: item.muscle,
-            difficulty: item.difficulty,
-            equipment: item.equipment,
-            instructions: item.instructions,
-          },
-        });
-      }}
-    >
-      <ExerciseCard exercise={item} />
-    </TouchableOpacity>
-  ), [router]);
+  const renderItem = useCallback(
+    ({ item }: { item: Exercise }) => (
+      <TouchableOpacity
+        onPress={() => {
+          router.push({
+            pathname: `/routine/${encodeURIComponent(item.name)}`,
+            params: {
+              muscle: item.muscle,
+              difficulty: item.difficulty,
+              equipment: item.equipment,
+              instructions: item.instructions,
+            },
+          });
+        }}
+      >
+        <ExerciseCard exercise={item} />
+      </TouchableOpacity>
+    ),
+    [router],
+  );
 
   const muscleGroups = ['biceps', 'chest', 'quadriceps'];
 

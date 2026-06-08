@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Typography, Card } from '../../src/shared';
-import { useProfile } from '../../src/shared/profile/useProfile';
-
+import { useProfile } from '../../src/features/profile/useProfile';
 export default function ProfileScreen() {
   const { profile, isLoading, updateProfilePicture } = useProfile();
 
