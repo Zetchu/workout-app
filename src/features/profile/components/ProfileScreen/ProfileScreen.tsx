@@ -20,7 +20,6 @@ import {
 import { useProfile } from '../../useProfile';
 
 export default function ProfileScreen() {
-  // Destructure updateProfilePicture to match the hook implementation exactly
   const { profile, updateProfilePicture } = useProfile();
 
   const stats = [
@@ -41,7 +40,7 @@ export default function ProfileScreen() {
 
   const handlePickImage = async () => {
     void triggerLightImpact();
-    // Fire the encapsulated device feature abstraction directly from your hook
+
     await updateProfilePicture();
   };
 
@@ -79,7 +78,7 @@ export default function ProfileScreen() {
             variant='title'
             style={styles.name}
           >
-            David
+            {profile?.name || 'David'}
           </Typography>
 
           <View style={styles.badgeRow}>

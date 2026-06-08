@@ -1,4 +1,3 @@
-// src/shared/profile/useProfile.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
@@ -6,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 const PROFILE_KEY = '@workout_app_profile';
 
 export type UserProfile = {
+  name: string;
   gender: string;
   age: string;
   height: string;
@@ -19,7 +19,7 @@ export function useProfile() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    loadProfile();
+    void loadProfile();
   }, []);
 
   const loadProfile = async () => {
@@ -44,9 +44,7 @@ export function useProfile() {
     }
   };
 
-  // --- DEVICE FEATURE ABSTRACTION ---
   const updateProfilePicture = async () => {
-    // 1. Request native device permissions
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -57,18 +55,15 @@ export function useProfile() {
       return;
     }
 
-    // 2. Launch native device feature
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'], // <-- Modern array syntax
+      mediaTypes: ['images'],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.8,
     });
 
-    // 3. Handle result and save locally
     if (!result.canceled && result.assets && result.assets.length > 0) {
       const newImageUri = result.assets[0].uri;
-
       if (profile) {
         await saveProfile({ ...profile, photoUri: newImageUri });
       }

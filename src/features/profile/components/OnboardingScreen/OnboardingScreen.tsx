@@ -4,147 +4,223 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
+  ScrollView,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Typography, Card, colors, spacing, shapes } from '#shared';
-import { useProfile } from '../../useProfile';
+import {
+  Header,
+  Typography,
+  Card,
+  colors,
+  spacing,
+  shapes,
+  triggerLightImpact,
+} from '#shared';
+import { useProfile } from '#profile';
 
 export default function OnboardingScreen() {
   const router = useRouter();
   const { saveProfile } = useProfile();
 
-  // Initialize with some sensible baseline defaults
+  // --- LOCAL COMPONENT FORM STATES ---
+  const [name, setName] = useState('');
   const [gender, setGender] = useState('Male');
-  const [age, setAge] = useState('26');
-  const [height, setHeight] = useState('183');
-  const [weight, setWeight] = useState('77');
-  const [goal, setGoal] = useState('Bodybuilding / Muscle Growth');
+  const [age, setAge] = useState('');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [goal, setGoal] = useState('Lean Bulking');
 
-  const handleSave = async () => {
-    await saveProfile({ gender, age, height, weight, goal });
-    // Navigate to the main tabs once saved
+  const handleCompleteOnboarding = async () => {
+    // Basic form verification validation
+    if (!name.trim() || !age.trim() || !height.trim() || !weight.trim()) {
+      Alert.alert(
+        'Metrics Incomplete',
+        'Please fill in all athletic targets to initialize your training dashboard.',
+      );
+      return;
+    }
+
+    void triggerLightImpact();
+
+    // Preserve full structural variables cleanly to disk
+    await saveProfile({
+      name: name.trim(),
+      gender,
+      age,
+      height,
+      weight,
+      goal,
+    });
+
+    // Bounce directly to the main tab interface
     router.replace('/(tabs)');
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
-      <View style={styles.content}>
+    <View style={styles.container}>
+      <Header />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps='handled'
+      >
         <Typography
-          variant='title'
+          variant='display'
           style={styles.title}
         >
-          Welcome!
+          Initialize Setup
         </Typography>
-        <Typography
-          variant='body'
-          style={styles.subtitle}
-        >
-          Let's set up your profile to personalize your routines.
+        <Typography style={styles.subtitle}>
+          Configure your biometric tracking matrix.
         </Typography>
 
-        <Card>
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Gender</Text>
+        <Card style={styles.formCard}>
+          {/* 👑 NEW NAME INPUT FIELD */}
+          <Typography
+            variant='label'
+            style={styles.inputLabel}
+          >
+            ATHLETE HANDLE / NAME
+          </Typography>
+          <View style={styles.inputWrapper}>
             <TextInput
-              style={styles.input}
-              value={gender}
-              onChangeText={setGender}
-              placeholderTextColor={colors.textMuted}
+              style={styles.textInput}
+              placeholder='Enter your name...'
+              placeholderTextColor={colors.textDim}
+              value={name}
+              onChangeText={setName}
+              autoCapitalize='words'
+              autoCorrect={false}
             />
           </View>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Age</Text>
+          <Typography
+            variant='label'
+            style={[styles.inputLabel, { marginTop: spacing.md }]}
+          >
+            AGE (YEARS)
+          </Typography>
+          <View style={styles.inputWrapper}>
             <TextInput
-              style={styles.input}
+              style={styles.textInput}
+              placeholder='e.g. 26'
+              placeholderTextColor={colors.textDim}
               value={age}
               onChangeText={setAge}
-              keyboardType='numeric'
-              placeholderTextColor={colors.textMuted}
+              keyboardType='number-pad'
             />
           </View>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Height (cm)</Text>
-            <TextInput
-              style={styles.input}
-              value={height}
-              onChangeText={setHeight}
-              keyboardType='numeric'
-              placeholderTextColor={colors.textMuted}
-            />
+          <View style={styles.rowInputs}>
+            <View style={{ flex: 1 }}>
+              <Typography
+                variant='label'
+                style={styles.inputLabel}
+              >
+                HEIGHT (CM)
+              </Typography>
+              <View style={styles.inputWrapper}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder='180'
+                  placeholderTextColor={colors.textDim}
+                  value={height}
+                  onChangeText={setHeight}
+                  keyboardType='number-pad'
+                />
+              </View>
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <Typography
+                variant='label'
+                style={styles.inputLabel}
+              >
+                WEIGHT (KG)
+              </Typography>
+              <View style={styles.inputWrapper}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder='80'
+                  placeholderTextColor={colors.textDim}
+                  value={weight}
+                  onChangeText={setWeight}
+                  keyboardType='number-pad'
+                />
+              </View>
+            </View>
           </View>
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Weight (kg)</Text>
+          <Typography
+            variant='label'
+            style={[styles.inputLabel, { marginTop: spacing.md }]}
+          >
+            PRIMARY OBJECTIVE
+          </Typography>
+          <View style={styles.inputWrapper}>
             <TextInput
-              style={styles.input}
-              value={weight}
-              onChangeText={setWeight}
-              keyboardType='numeric'
-              placeholderTextColor={colors.textMuted}
-            />
-          </View>
-
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Primary Goal</Text>
-            <TextInput
-              style={styles.input}
+              style={styles.textInput}
+              placeholder='e.g. Lean Bulking'
+              placeholderTextColor={colors.textDim}
               value={goal}
               onChangeText={setGoal}
-              placeholderTextColor={colors.textMuted}
             />
           </View>
         </Card>
 
         <TouchableOpacity
-          style={styles.button}
-          onPress={handleSave}
+          style={styles.submitButton}
+          onPress={handleCompleteOnboarding}
         >
-          <Text style={styles.buttonText}>Complete Setup</Text>
+          <Typography style={styles.submitBtnText}>BUILD TRACKER</Typography>
         </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { flex: 1, padding: spacing.lg, justifyContent: 'center' },
-  title: { textAlign: 'center', marginBottom: spacing.xs },
-  subtitle: {
-    textAlign: 'center',
-    color: colors.textMuted,
-    marginBottom: spacing.lg,
+  scrollContent: {
+    paddingHorizontal: spacing.containerMargin,
+    paddingBottom: spacing.xl,
   },
-  inputGroup: { marginBottom: spacing.md },
-  label: {
-    fontSize: 14,
-    color: colors.textMain,
-    marginBottom: spacing.xs,
-    fontWeight: '600',
+  title: { fontWeight: '900', color: colors.textMain, marginTop: spacing.sm },
+  subtitle: { color: colors.textMuted, fontSize: 14, marginBottom: spacing.lg },
+  formCard: { padding: 20, gap: spacing.xs },
+  inputLabel: {
+    color: colors.brand,
+    fontWeight: '800',
+    fontSize: 11,
+    letterSpacing: 0.5,
+    marginBottom: 6,
   },
-  input: {
+  inputWrapper: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: shapes.radiusSmall,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: shapes.radiusSmall,
-    padding: spacing.md,
-    fontSize: 16,
-    backgroundColor: colors.surface,
-    color: colors.textMain,
+    paddingHorizontal: spacing.md,
+    height: 48,
+    justifyContent: 'center',
   },
-  button: {
+  textInput: {
+    color: colors.textMain,
+    fontSize: 14,
+    width: '100%',
+    height: '100%',
+  },
+  rowInputs: { flexDirection: 'row', gap: spacing.md, marginTop: spacing.md },
+  submitButton: {
     backgroundColor: colors.brand,
     padding: spacing.md,
     borderRadius: shapes.radiusMedium,
     alignItems: 'center',
     marginTop: spacing.xl,
   },
-  buttonText: { color: colors.surface, fontSize: 16, fontWeight: 'bold' },
+  submitBtnText: {
+    color: colors.background,
+    fontWeight: '900',
+    letterSpacing: 0.5,
+  },
 });

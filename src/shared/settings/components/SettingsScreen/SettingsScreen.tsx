@@ -7,21 +7,26 @@ import {
   ScrollView,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useRouter } from 'expo-router';
 
 import { useSettings } from '../../useSettings';
 
-// --- BYPASS BARREL FILES TO AVOID REQUIRE CYCLES & EXTENSION ERRORS ---
 import Header from '../../../components/Header/index';
 import Typography from '../../../design/elements/Typography/index';
 import Card from '../../../design/elements/Card/index';
 import { colors } from '../../../design/foundations/colors';
 import { spacing } from '../../../design/foundations/spacing';
 import { shapes } from '../../../design/foundations/shapes';
-import { triggerLightImpact } from '../../../device/haptics/index';
+import {
+  triggerLightImpact,
+  triggerSuccessFeedback,
+} from '../../../device/haptics/index';
+import { useProfile } from '#profile';
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const { settings, updateSetting } = useSettings();
-
+  const { clearProfile } = useProfile();
   const menuOptions = [
     {
       label: 'Account',
@@ -39,6 +44,16 @@ export default function SettingsScreen() {
       icon: 'shield-checkmark-outline' as const,
     },
   ];
+
+  const handleLogout = async () => {
+    // 1. Fire a clean haptic pulse sequence
+    void triggerSuccessFeedback();
+
+    // 2. Clear out the AsyncStorage keys
+    await clearProfile();
+
+    router.replace('/onboarding');
+  };
 
   return (
     <View style={styles.container}>
@@ -123,7 +138,7 @@ export default function SettingsScreen() {
         {/* Logout Trigger Card */}
         <TouchableOpacity
           style={styles.logoutButton}
-          onPress={() => void triggerLightImpact()}
+          onPress={handleLogout} // Hook up our clean clearance state action
         >
           <Ionicons
             name='log-out-outline'

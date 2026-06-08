@@ -1,8 +1,10 @@
+// src/shared/components/Header/Header.tsx
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Typography from '../../design/elements/Typography';
+import RestTimer from '../RestTimer'; // Import our brand new component
 import { colors } from '../../design/foundations/colors';
 import { spacing } from '../../design/foundations/spacing';
 
@@ -22,11 +24,9 @@ export default function Header() {
           FORGE FITNESS
         </Typography>
       </View>
-      <Ionicons
-        name='notifications-outline'
-        size={22}
-        color={colors.textMain}
-      />
+
+      {/* RENDER CLEAN INDEPENDENT TIMER MODULE */}
+      <RestTimer />
     </View>
   );
 }
