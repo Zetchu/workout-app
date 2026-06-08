@@ -1,0 +1,62 @@
+{"_e":"root:init","_t":1780906171116,"format":"v0-jsonl","version":"56.1.14"}
+{"_e":"env:mode","_t":1780906171117,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1780906171119,"mode":"development","files":["../../../.env"],"env":{"EXPO_PUBLIC_API_KEY":"DBsoW0NJoSmWfChnGEnY6NmFT7Vt2Vg3hdaPQ9aj"}}
+{"_e":"devserver:start","_t":1780906171332,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../../../src/app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1780906171561,"serverRoot":"../../..","projectRoot":"../../..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1780906172047,"atlas":false,"workers":7,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1780906304266,"id":"1","platform":"ios","environment":null,"entry":"node_modules/expo-router/entry.js"}
+{"_e":"metro:bundling:progress","_t":1780906304266,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1780906304269,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1780906304729,"id":"1","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1780906304830,"id":"1","progress":0.18367346938775508,"total":14,"current":6}
+{"_e":"metro:bundling:progress","_t":1780906304930,"id":"1","progress":0.25,"total":14,"current":7}
+{"_e":"metro:bundling:progress","_t":1780906305030,"id":"1","progress":0.32653061224489793,"total":14,"current":8}
+{"_e":"metro:bundling:progress","_t":1780906305128,"id":"1","progress":0.41326530612244905,"total":14,"current":9}
+{"_e":"metro:bundling:progress","_t":1780906305228,"id":"1","progress":0.41326530612244905,"total":45,"current":23}
+{"_e":"metro:bundling:progress","_t":1780906305328,"id":"1","progress":0.41326530612244905,"total":113,"current":37}
+{"_e":"metro:bundling:progress","_t":1780906305428,"id":"1","progress":0.41326530612244905,"total":278,"current":65}
+{"_e":"metro:bundling:progress","_t":1780906305539,"id":"1","progress":0.41326530612244905,"total":317,"current":88}
+{"_e":"metro:bundling:progress","_t":1780906305639,"id":"1","progress":0.41326530612244905,"total":384,"current":123}
+{"_e":"metro:bundling:progress","_t":1780906305739,"id":"1","progress":0.41326530612244905,"total":408,"current":140}
+{"_e":"metro:bundling:progress","_t":1780906305839,"id":"1","progress":0.41326530612244905,"total":423,"current":148}
+{"_e":"metro:bundling:progress","_t":1780906305939,"id":"1","progress":0.41326530612244905,"total":462,"current":183}
+{"_e":"metro:bundling:progress","_t":1780906306042,"id":"1","progress":0.41326530612244905,"total":483,"current":224}
+{"_e":"metro:bundling:progress","_t":1780906306147,"id":"1","progress":0.41326530612244905,"total":517,"current":265}
+{"_e":"metro:bundling:progress","_t":1780906306246,"id":"1","progress":0.41326530612244905,"total":598,"current":294}
+{"_e":"metro:bundling:progress","_t":1780906306346,"id":"1","progress":0.41326530612244905,"total":621,"current":331}
+{"_e":"metro:bundling:progress","_t":1780906306450,"id":"1","progress":0.41326530612244905,"total":690,"current":375}
+{"_e":"metro:bundling:progress","_t":1780906306550,"id":"1","progress":0.41326530612244905,"total":734,"current":435}
+{"_e":"metro:bundling:progress","_t":1780906306650,"id":"1","progress":0.41326530612244905,"total":793,"current":494}
+{"_e":"metro:bundling:progress","_t":1780906306750,"id":"1","progress":0.41326530612244905,"total":838,"current":534}
+{"_e":"metro:bundling:progress","_t":1780906306851,"id":"1","progress":0.41326530612244905,"total":900,"current":575}
+{"_e":"metro:bundling:progress","_t":1780906306952,"id":"1","progress":0.4435023261201306,"total":943,"current":628}
+{"_e":"metro:bundling:progress","_t":1780906307051,"id":"1","progress":0.4885577638431289,"total":970,"current":678}
+{"_e":"metro:bundling:progress","_t":1780906307152,"id":"1","progress":0.5291935998784605,"total":987,"current":718}
+{"_e":"metro:bundling:progress","_t":1780906307252,"id":"1","progress":0.5961204254770085,"total":996,"current":769}
+{"_e":"metro:bundling:progress","_t":1780906307353,"id":"1","progress":0.6371545051906771,"total":1011,"current":807}
+{"_e":"metro:bundling:progress","_t":1780906307453,"id":"1","progress":0.6955299377441406,"total":1024,"current":854}
+{"_e":"metro:bundling:progress","_t":1780906307553,"id":"1","progress":0.7645767013620456,"total":1043,"current":912}
+{"_e":"metro:bundling:progress","_t":1780906307654,"id":"1","progress":0.8165801948088882,"total":1069,"current":966}
+{"_e":"metro:bundling:progress","_t":1780906307754,"id":"1","progress":0.8463322920625033,"total":1087,"current":1000}
+{"_e":"metro:bundling:progress","_t":1780906307855,"id":"1","progress":0.868053689271104,"total":1098,"current":1023}
+{"_e":"metro:bundling:progress","_t":1780906307955,"id":"1","progress":0.868053689271104,"total":1125,"current":1035}
+{"_e":"metro:bundling:progress","_t":1780906308055,"id":"1","progress":0.868053689271104,"total":1160,"current":1076}
+{"_e":"metro:bundling:progress","_t":1780906308155,"id":"1","progress":0.8796929192378721,"total":1192,"current":1118}
+{"_e":"metro:bundling:progress","_t":1780906308255,"id":"1","progress":0.9205839030540862,"total":1209,"current":1160}
+{"_e":"metro:bundling:progress","_t":1780906308355,"id":"1","progress":0.9205839030540862,"total":1266,"current":1214}
+{"_e":"metro:bundling:progress","_t":1780906308455,"id":"1","progress":0.9753095945372477,"total":1288,"current":1272}
+{"_e":"metro:bundling:progress","_t":1780906308558,"id":"1","progress":0.9954005426994439,"total":1303,"current":1300}
+{"_e":"metro:bundling:progress","_t":1780906308658,"id":"1","progress":0.9969372146621454,"total":1305,"current":1303}
+{"_e":"metro:bundling:progress","_t":1780906308759,"id":"1","progress":0.9984691927234183,"total":1306,"current":1305}
+{"_e":"metro:bundling:progress","_t":1780906308841,"id":"1","progress":0.999,"total":1306,"current":1306}
+{"_e":"metro:bundling:done","_t":1780906309071,"id":"1","total":1306,"ms":4804.477917}
+{"_e":"metro:client_log","_t":1780906309644,"level":"warn","data":["Require cycle: src/shared/index.ts -> src/shared/components/Header/index.ts -> src/shared/components/Header/Header.tsx -> src/shared/index.ts\n\nRequire cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle."]}
+{"_e":"metro:client_log","_t":1780906309651,"level":"warn","data":["Require cycle: src/shared/index.ts -> src/shared/settings/index.ts -> src/shared/settings/components/SettingsScreen/index.ts -> src/shared/settings/components/SettingsScreen/SettingsScreen.tsx -> src/shared/index.ts\n\nRequire cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle."]}
+{"_e":"metro:client_log","_t":1780906310918,"level":"error","data":["Failed to load exercises:","[Error: Failed to fetch exercises: 400 - {\"error\": \"This endpoint is currently down for free users. Please upgrade to a premium subscription or try again later.\"}]","\n\n\u001b[1mCode: workoutService.ts\u001b[22m\n\u001b[0m \u001b[90m 40 |\u001b[39m     \u001b[36mconst\u001b[39m errorDetails \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m response\u001b[33m.\u001b[39mtext()\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m       \u001b[32m`Failed to fetch exercises: ${response.status} - ${errorDetails}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 44 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   }\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  fetchExercises (\u001b]8;;src/features/exercises/services/workoutService.ts:42:20\u0007src/features/exercises/services/workoutService.ts:42:20\u001b]8;;\u0007)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1780906310972,"level":"log","data":["Reached end of list"]}
+{"_e":"metro:client_log","_t":1780906319505,"level":"log","data":["Reached end of list"]}
+{"_e":"metro:client_log","_t":1780906319506,"level":"error","data":["Failed to load exercises:","[Error: Failed to fetch exercises: 400 - {\"error\": \"This endpoint is currently down for free users. Please upgrade to a premium subscription or try again later.\"}]","\n\n\u001b[1mCode: workoutService.ts\u001b[22m\n\u001b[0m \u001b[90m 40 |\u001b[39m     \u001b[36mconst\u001b[39m errorDetails \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m response\u001b[33m.\u001b[39mtext()\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m       \u001b[32m`Failed to fetch exercises: ${response.status} - ${errorDetails}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 44 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   }\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  fetchExercises (\u001b]8;;src/features/exercises/services/workoutService.ts:42:20\u0007src/features/exercises/services/workoutService.ts:42:20\u001b]8;;\u0007)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1780906320233,"level":"error","data":["Failed to load exercises:","[Error: Failed to fetch exercises: 400 - {\"error\": \"This endpoint is currently down for free users. Please upgrade to a premium subscription or try again later.\"}]","\n\n\u001b[1mCode: workoutService.ts\u001b[22m\n\u001b[0m \u001b[90m 40 |\u001b[39m     \u001b[36mconst\u001b[39m errorDetails \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m response\u001b[33m.\u001b[39mtext()\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m       \u001b[32m`Failed to fetch exercises: ${response.status} - ${errorDetails}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 44 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   }\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  fetchExercises (\u001b]8;;src/features/exercises/services/workoutService.ts:42:20\u0007src/features/exercises/services/workoutService.ts:42:20\u001b]8;;\u0007)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1780906320236,"level":"log","data":["Reached end of list"]}
+{"_e":"metro:client_log","_t":1780906321835,"level":"error","data":["Failed to load exercises:","[Error: Failed to fetch exercises: 400 - {\"error\": \"This endpoint is currently down for free users. Please upgrade to a premium subscription or try again later.\"}]","\n\n\u001b[1mCode: workoutService.ts\u001b[22m\n\u001b[0m \u001b[90m 40 |\u001b[39m     \u001b[36mconst\u001b[39m errorDetails \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m response\u001b[33m.\u001b[39mtext()\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m       \u001b[32m`Failed to fetch exercises: ${response.status} - ${errorDetails}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 44 |\u001b[39m     )\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   }\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  fetchExercises (\u001b]8;;src/features/exercises/services/workoutService.ts:42:20\u0007src/features/exercises/services/workoutService.ts:42:20\u001b]8;;\u0007)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1780906321835,"level":"log","data":["Reached end of list"]}
