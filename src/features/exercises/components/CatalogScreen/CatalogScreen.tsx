@@ -1,4 +1,3 @@
-// src/features/exercises/components/CatalogScreen/CatalogScreen.tsx
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   FlatList,
@@ -7,10 +6,21 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import { Header, Typography, colors, spacing, shapes } from '#shared';
+import {
+  Header,
+  Typography,
+  colors,
+  spacing,
+  shapes,
+  triggerLightImpact,
+  triggerSuccessFeedback,
+  useShakeSensor,
+} from '#shared';
+
 import ExerciseCard from '../ExerciseCard';
 import { useExerciseSearch } from '../../services/useExerciseSearch';
 import { fetchExercises, type Exercise } from '../../services/workoutService';
@@ -25,18 +35,56 @@ export default function CatalogScreen() {
   const { searchQuery, setSearchQuery, filteredExercises } =
     useExerciseSearch(exercises);
 
+  // --- NATIVE SHAKE LOGIC ---
+  const handleShakeEvent = useCallback(() => {
+    if (filteredExercises.length === 0) return;
+
+    // Select a random exercise from the currently loaded list
+    const randomIndex = Math.floor(Math.random() * filteredExercises.length);
+    const randomExercise = filteredExercises[randomIndex];
+
+    // Trigger physical vibration
+    void triggerSuccessFeedback();
+
+    // Alert user of their random recommendation
+    Alert.alert(
+      '🏋️ Shake Suggestion!',
+      `How about trying: "${randomExercise.name}"?`,
+      [
+        {
+          text: "Let's do it!",
+          onPress: () => {
+            router.push({
+              pathname: `/routine/${encodeURIComponent(randomExercise.name)}`,
+              params: {
+                muscle: randomExercise.muscle,
+                difficulty: randomExercise.difficulty,
+                equipment: randomExercise.equipment,
+                instructions: randomExercise.instructions,
+              },
+            });
+          },
+        },
+        { text: 'Roll again', style: 'cancel' },
+      ],
+    );
+  }, [filteredExercises, router]);
+
+  // Hook into accelerometer stream
+  useShakeSensor(handleShakeEvent);
+  // -------------------------
+
   const loadData = useCallback(async (muscle: string, isRefresh = false) => {
     if (isRefresh) {
       setRefreshing(true);
     } else {
       setLoading(true);
     }
-
     try {
       const data = await fetchExercises(muscle);
       setExercises(data);
     } catch (error) {
-      console.error('Failed to load exercises from API Ninjas:', error);
+      console.error('Failed to load exercises:', error);
     } finally {
       if (isRefresh) {
         setRefreshing(false);
@@ -62,6 +110,7 @@ export default function CatalogScreen() {
     ({ item }: { item: Exercise }) => (
       <TouchableOpacity
         onPress={() => {
+          void triggerLightImpact(); // Add clean haptic response on press
           router.push({
             pathname: `/routine/${encodeURIComponent(item.name)}`,
             params: {
@@ -93,7 +142,10 @@ export default function CatalogScreen() {
               styles.filterTab,
               selectedMuscle === muscle && styles.activeFilterTab,
             ]}
-            onPress={() => setSelectedMuscle(muscle)}
+            onPress={() => {
+              void triggerLightImpact(); // Trigger haptic on tab change
+              setSelectedMuscle(muscle);
+            }}
           >
             <Typography
               variant='caption'
@@ -145,12 +197,20 @@ export default function CatalogScreen() {
           onEndReached={onEndReached}
           onEndReachedThreshold={0.5}
           ListHeaderComponent={
-            <Typography
-              variant='label'
-              style={styles.sectionTitle}
-            >
-              Live {selectedMuscle} Catalog ({filteredExercises.length})
-            </Typography>
+            <View>
+              <Typography
+                variant='label'
+                style={styles.sectionTitle}
+              >
+                Live {selectedMuscle} Catalog ({filteredExercises.length})
+              </Typography>
+              <Typography
+                variant='caption'
+                style={styles.shakeTip}
+              >
+                📱 Shake phone to pick random workout suggestion!
+              </Typography>
+            </View>
           }
           ListEmptyComponent={
             !loading ? (
@@ -201,6 +261,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.md,
     fontSize: 16,
+    color: colors.textMain,
   },
   emptyText: {
     textAlign: 'center',
@@ -217,6 +278,11 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: colors.textMuted,
+    marginBottom: spacing.xs,
+  },
+  shakeTip: {
+    color: colors.brand,
+    fontWeight: '500',
     marginBottom: spacing.md,
   },
 });
