@@ -39,9 +39,9 @@ Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQL
 
 Follow these steps sequentially to clone, install, and run the platform environment local instance:
 
-1.  Bashnpm install
-2.  Bashnpx expo-doctor
-3.  Bashnpx expo start --clear
+1.  npm install
+2.  npx expo-doctor
+3.  npx expo start --clear
 4.  **Launch the Interface:**
     - Press **i** to open the active iOS Simulator.
     - Press **a** to open the active Android Emulator.
