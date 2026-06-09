@@ -1,7 +1,7 @@
-import React from 'react';
-import { FlatList, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import React from "react";
+import { FlatList, StyleSheet, View, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import {
   Header,
@@ -10,8 +10,8 @@ import {
   spacing,
   triggerLightImpact,
   useFavorites,
-} from '#shared';
-import ExerciseCard from '../../features/exercises/components/ExerciseCard';
+} from "#shared";
+import ExerciseCard from "../../features/exercises/components/ExerciseCard";
 
 export default function FavoritesTabScreen() {
   const router = useRouter();
@@ -27,10 +27,7 @@ export default function FavoritesTabScreen() {
         contentContainerStyle={styles.scrollContent}
         ListHeaderComponent={
           <View>
-            <Typography
-              variant='title'
-              style={styles.sectionHeader}
-            >
+            <Typography variant="title" style={styles.sectionHeader}>
               Your Vault ({favorites.length})
             </Typography>
           </View>
@@ -56,7 +53,7 @@ export default function FavoritesTabScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Ionicons
-              name='heart-dislike-outline'
+              name="heart-dislike-outline"
               size={48}
               color={colors.textMuted}
             />
@@ -77,17 +74,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.containerMargin,
     paddingBottom: spacing.xl,
   },
-  sectionHeader: { marginVertical: spacing.md, fontWeight: '800' },
+  sectionHeader: { marginVertical: spacing.md, fontWeight: "800" },
   emptyContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: spacing.xl * 2,
     paddingHorizontal: spacing.xl,
     gap: spacing.md,
   },
   emptyText: {
     color: colors.textMuted,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 22,
     fontSize: 14,
   },

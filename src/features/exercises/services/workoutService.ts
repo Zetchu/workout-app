@@ -3,18 +3,18 @@ export interface Exercise {
   type: string;
   muscle: string;
   equipment: string;
-  difficulty: 'beginner' | 'intermediate' | 'expert';
+  difficulty: "beginner" | "intermediate" | "expert";
   instructions: string;
 }
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
-const BASE_URL = 'https://api.api-ninjas.com/v1/exercises';
+const BASE_URL = "https://api.api-ninjas.com/v1/exercises";
 
 export async function fetchExercises(muscle?: string): Promise<Exercise[]> {
   // Safety check to ensure the .env variable is loaded
   if (!API_KEY) {
     throw new Error(
-      'API Key is missing! Make sure EXPO_PUBLIC_API_KEY is set in your .env file.',
+      "API Key is missing! Make sure EXPO_PUBLIC_API_KEY is set in your .env file.",
     );
   }
 
@@ -28,10 +28,10 @@ export async function fetchExercises(muscle?: string): Promise<Exercise[]> {
   const url = `${BASE_URL}?${query}`;
 
   const response = await fetch(url, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'X-Api-Key': API_KEY,
-      'Content-Type': 'application/json',
+      "X-Api-Key": API_KEY,
+      "Content-Type": "application/json",
     },
   });
 

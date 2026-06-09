@@ -1,7 +1,7 @@
-import React from 'react';
-import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { colors } from '#shared';
+import React from "react";
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { colors } from "#shared";
 
 export default function TabLayout() {
   return (
@@ -11,8 +11,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: colors.brand, // Electric Lime text/icons
         tabBarInactiveTintColor: colors.textMuted, // Subdued slate gray for unselected states
         tabBarStyle: {
-          backgroundColor: '#0E0E0E', // Pure dark matching your deepest container layer
-          borderTopColor: '#1F2020', // Subtle top perimeter line separating the screens
+          backgroundColor: "#0E0E0E", // Pure dark matching your deepest container layer
+          borderTopColor: "#1F2020", // Subtle top perimeter line separating the screens
           height: 64,
           paddingBottom: 10,
           paddingTop: 8,
@@ -20,12 +20,12 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name='index'
+        name="index"
         options={{
-          title: 'Catalog',
+          title: "Catalog",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? 'barbell' : 'barbell-outline'}
+              name={focused ? "barbell" : "barbell-outline"}
               size={22}
               color={color}
             />
@@ -33,12 +33,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='favorites'
+        name="favorites"
         options={{
-          title: 'Favorites',
+          title: "Favorites",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? 'heart' : 'heart-outline'}
+              name={focused ? "heart" : "heart-outline"}
               size={22}
               color={color}
             />
@@ -46,12 +46,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='profile'
+        name="profile"
         options={{
-          title: 'Profile',
+          title: "Profile",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? 'person' : 'person-outline'}
+              name={focused ? "person" : "person-outline"}
               size={22}
               color={color}
             />
@@ -59,12 +59,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='settings'
+        name="settings"
         options={{
-          title: 'Settings',
+          title: "Settings",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? 'settings' : 'settings-outline'}
+              name={focused ? "settings" : "settings-outline"}
               size={22}
               color={color}
             />

@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { triggerLightImpact } from '../device/haptics';
-import { Exercise } from '#exercises';
+import { triggerLightImpact } from "../device/haptics";
+import { Exercise } from "#exercises";
 
-const FAVORITES_KEY = '@workout_app_favorites';
+const FAVORITES_KEY = "@workout_app_favorites";
 
 interface FavoritesContextType {
   favorites: Exercise[];
@@ -19,18 +19,20 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<Exercise[]>([]);
 
-  useEffect(() => {
-    void loadFavorites();
-  }, []);
-
   const loadFavorites = async () => {
     try {
       const stored = await AsyncStorage.getItem(FAVORITES_KEY);
       if (stored) setFavorites(JSON.parse(stored));
     } catch (err) {
-      console.error('Failed to load favorites', err);
+      // eslint-disable-next-line no-console
+      console.error("Failed to load favorites", err);
     }
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadFavorites();
+  }, []);
 
   const toggleFavorite = async (exercise: Exercise) => {
     void triggerLightImpact();
@@ -46,7 +48,8 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     try {
       await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
     } catch (err) {
-      console.error('Failed to preserve favorite state', err);
+      // eslint-disable-next-line no-console
+      console.error("Failed to preserve favorite state", err);
     }
   };
 
@@ -65,6 +68,6 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
 export function useFavorites() {
   const context = useContext(FavoritesContext);
   if (!context)
-    throw new Error('useFavorites must be used within a FavoritesProvider');
+    throw new Error("useFavorites must be used within a FavoritesProvider");
   return context;
 }

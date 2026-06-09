@@ -1,1 +1,1 @@
-export * from './useShakeSensor';
+export * from "./useShakeSensor";

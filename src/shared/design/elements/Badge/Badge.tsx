@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, ViewProps, StyleProp, ViewStyle } from 'react-native';
-import { spacing, shapes } from '../../foundations/index';
-import Typography from '../Typography/index';
+import React from "react";
+import { View, ViewProps, StyleProp, ViewStyle } from "react-native";
+import { spacing, shapes } from "../../foundations/index";
+import Typography from "../Typography/index";
 
 interface BadgeProps extends ViewProps {
   label: string;
@@ -9,8 +9,7 @@ interface BadgeProps extends ViewProps {
   textColor?: string;
   style?: StyleProp<ViewStyle>;
 }
-
-export const Badge: React.FC<BadgeProps> = ({
+const Badge: React.FC<BadgeProps> = ({
   label,
   backgroundColor,
   textColor,
@@ -25,16 +24,16 @@ export const Badge: React.FC<BadgeProps> = ({
           borderRadius: shapes.radiusPill,
           paddingHorizontal: spacing.md,
           paddingVertical: 6,
-          alignSelf: 'flex-start',
+          alignSelf: "flex-start",
         },
         style,
       ]}
       {...props}
     >
       <Typography
-        variant='label'
+        variant="label"
         style={[
-          { fontWeight: '700', textTransform: 'uppercase', fontSize: 11 },
+          { fontWeight: "700", textTransform: "uppercase", fontSize: 11 },
           textColor ? { color: textColor } : undefined,
         ]}
       >

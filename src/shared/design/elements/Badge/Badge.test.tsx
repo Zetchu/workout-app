@@ -1,14 +1,10 @@
-import { render } from '@testing-library/react-native';
-import { Badge } from './Badge';
+import { render, screen } from "@testing-library/react-native";
+import Badge from "./Badge";
 
-describe('Design > Elements > Badge', () => {
-  // Smoke test
-  it('works', () => {
-    render(
-      <Badge
-        label='Hypertrophy'
-        backgroundColor='#38bdf8'
-      />,
-    );
+describe("Design > Elements > Badge", () => {
+  it("renders the label correctly", () => {
+    render(<Badge label="Hypertrophy" backgroundColor="#38bdf8" />);
+    // Check that the text actually appeared!
+    expect(screen.getByText("Hypertrophy")).toBeTruthy();
   });
 });

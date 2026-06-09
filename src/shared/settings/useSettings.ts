@@ -1,8 +1,8 @@
 // src/shared/settings/useSettings.ts
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
-const SETTINGS_KEY = '@workout_app_user_settings';
+const SETTINGS_KEY = "@workout_app_user_settings";
 
 export type UserSettings = {
   useMetric: boolean;
@@ -13,16 +13,12 @@ export type UserSettings = {
 const defaultSettings: UserSettings = {
   useMetric: true,
   autoStartRestTimers: false,
-  defaultRestTime: '90', // Default 90 seconds
+  defaultRestTime: "90", // Default 90 seconds
 };
 
 export function useSettings() {
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    loadSettings();
-  }, []);
 
   const loadSettings = async () => {
     try {
@@ -31,11 +27,17 @@ export function useSettings() {
         setSettings(JSON.parse(storedSettings));
       }
     } catch (error) {
-      console.error('Failed to load settings', error);
+      // eslint-disable-next-line no-console
+      console.error("Failed to load settings", error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadSettings();
+  }, []);
 
   const updateSetting = async <K extends keyof UserSettings>(
     key: K,
@@ -49,6 +51,7 @@ export function useSettings() {
       // Persist to device storage in the background
       await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(updatedSettings));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Failed to save setting: ${key}`, error);
     }
   };

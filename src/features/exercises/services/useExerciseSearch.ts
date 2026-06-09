@@ -1,8 +1,8 @@
-import { useState, useMemo } from 'react';
-import { Exercise } from './workoutService';
+import { useState, useMemo } from "react";
+import { Exercise } from "./workoutService";
 
 export function useExerciseSearch(initialExercises: Exercise[]) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // useMemo ensures we only recalculate the filter when the query or list changes
   const filteredExercises = useMemo(() => {

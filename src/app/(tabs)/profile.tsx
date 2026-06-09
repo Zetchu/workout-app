@@ -1,5 +1,5 @@
-import React from 'react';
-import { ProfileScreen } from '#profile';
+import React from "react";
+import { ProfileScreen } from "#profile";
 
 export default function ProfileRoute() {
   return <ProfileScreen />;

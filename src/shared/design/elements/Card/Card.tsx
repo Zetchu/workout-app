@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import React from "react";
+import { View, StyleSheet, ViewStyle } from "react-native";
 
 // --- FIXED INTERNAL RELATIVE IMPORTS (NO .js EXTENSIONS) ---
-import { colors } from '../../foundations/colors';
-import { shapes } from '../../foundations/shapes';
+import { colors } from "../../foundations/colors";
+import { shapes } from "../../foundations/shapes";
 
 interface CardProps {
   style?: ViewStyle | ViewStyle[];
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     padding: 20,
-    shadowColor: '#000000',
+    shadowColor: "#000000",
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.5,
     shadowRadius: 24,

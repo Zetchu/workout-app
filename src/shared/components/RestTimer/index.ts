@@ -1,1 +1,1 @@
-export { default } from './RestTimer';
+export { default } from "./RestTimer";

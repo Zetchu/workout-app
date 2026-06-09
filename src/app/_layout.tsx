@@ -1,26 +1,26 @@
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { FavoritesProvider } from '#shared';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { FavoritesProvider } from "#shared";
 
 export default function RootLayout() {
   return (
     <>
       <FavoritesProvider>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='index' />
-          <Stack.Screen name='onboarding' />
+          <Stack.Screen name="index" />
+          <Stack.Screen name="onboarding" />
 
-          <Stack.Screen name='(tabs)' />
+          <Stack.Screen name="(tabs)" />
 
           <Stack.Screen
-            name='routine'
+            name="routine"
             options={{
-              presentation: 'modal',
+              presentation: "modal",
               headerShown: false,
             }}
           />
         </Stack>
-        <StatusBar style='light' />
+        <StatusBar style="light" />
       </FavoritesProvider>
     </>
   );

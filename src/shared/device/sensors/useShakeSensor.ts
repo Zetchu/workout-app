@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Accelerometer } from 'expo-sensors';
+import { useEffect } from "react";
+import { Accelerometer } from "expo-sensors";
 
 export const useShakeSensor = (onShake: () => void, sensitivity = 2.2) => {
   useEffect(() => {

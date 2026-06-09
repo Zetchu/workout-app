@@ -1,1 +1,1 @@
-export { default } from './RoutineDetailsScreen';
+export { default } from "./RoutineDetailsScreen";

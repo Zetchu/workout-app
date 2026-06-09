@@ -1,27 +1,27 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   StyleSheet,
   Switch,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 
-import { useSettings } from '../../useSettings';
+import { useSettings } from "../../useSettings";
 
-import Header from '../../../components/Header/index';
-import Typography from '../../../design/elements/Typography/index';
-import Card from '../../../design/elements/Card/index';
-import { colors } from '../../../design/foundations/colors';
-import { spacing } from '../../../design/foundations/spacing';
-import { shapes } from '../../../design/foundations/shapes';
+import Header from "../../../components/Header/index";
+import Typography from "../../../design/elements/Typography/index";
+import Card from "../../../design/elements/Card/index";
+import { colors } from "../../../design/foundations/colors";
+import { spacing } from "../../../design/foundations/spacing";
+import { shapes } from "../../../design/foundations/shapes";
 import {
   triggerLightImpact,
   triggerSuccessFeedback,
-} from '../../../device/haptics/index';
-import { useProfile } from '#profile';
+} from "../../../device/haptics/index";
+import { useProfile } from "#profile";
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -29,19 +29,19 @@ export default function SettingsScreen() {
   const { clearProfile } = useProfile();
   const menuOptions = [
     {
-      label: 'Account',
-      sub: 'Security, email, and password',
-      icon: 'person-outline' as const,
+      label: "Account",
+      sub: "Security, email, and password",
+      icon: "person-outline" as const,
     },
     {
-      label: 'Notifications',
-      sub: 'Workout reminders & push alerts',
-      icon: 'notifications-outline' as const,
+      label: "Notifications",
+      sub: "Workout reminders & push alerts",
+      icon: "notifications-outline" as const,
     },
     {
-      label: 'Privacy',
-      sub: 'Data sharing and profile visibility',
-      icon: 'shield-checkmark-outline' as const,
+      label: "Privacy",
+      sub: "Data sharing and profile visibility",
+      icon: "shield-checkmark-outline" as const,
     },
   ];
 
@@ -52,17 +52,14 @@ export default function SettingsScreen() {
     // 2. Clear out the AsyncStorage keys
     await clearProfile();
 
-    router.replace('/onboarding');
+    router.replace("/onboarding");
   };
 
   return (
     <View style={styles.container}>
       <Header />
       <ScrollView contentContainerStyle={styles.content}>
-        <Typography
-          variant='title'
-          style={styles.title}
-        >
+        <Typography variant="title" style={styles.title}>
           Settings
         </Typography>
 
@@ -76,7 +73,7 @@ export default function SettingsScreen() {
               value={settings.useMetric}
               onValueChange={(val) => {
                 void triggerLightImpact();
-                updateSetting('useMetric', val);
+                updateSetting("useMetric", val);
               }}
               trackColor={{ false: colors.surfaceBright, true: colors.brand }}
               thumbColor={colors.textMain}
@@ -91,7 +88,7 @@ export default function SettingsScreen() {
               value={settings.autoStartRestTimers}
               onValueChange={(val) => {
                 void triggerLightImpact();
-                updateSetting('autoStartRestTimers', val);
+                updateSetting("autoStartRestTimers", val);
               }}
               trackColor={{ false: colors.surfaceBright, true: colors.brand }}
               thumbColor={colors.textMain}
@@ -124,7 +121,7 @@ export default function SettingsScreen() {
                     </View>
                   </View>
                   <Ionicons
-                    name='chevron-forward-outline'
+                    name="chevron-forward-outline"
                     size={18}
                     color={colors.textMuted}
                   />
@@ -140,11 +137,7 @@ export default function SettingsScreen() {
           style={styles.logoutButton}
           onPress={handleLogout} // Hook up our clean clearance state action
         >
-          <Ionicons
-            name='log-out-outline'
-            size={18}
-            color={colors.error}
-          />
+          <Ionicons name="log-out-outline" size={18} color={colors.error} />
           <Typography style={styles.logoutText}>LOG OUT</Typography>
         </TouchableOpacity>
       </ScrollView>
@@ -158,30 +151,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.containerMargin,
     paddingBottom: spacing.xl,
   },
-  title: { fontWeight: '900', marginBottom: spacing.md, marginTop: spacing.sm },
+  title: { fontWeight: "900", marginBottom: spacing.md, marginTop: spacing.sm },
   configCard: { padding: spacing.md, marginBottom: spacing.md },
   toggleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 6,
   },
-  settingLabel: { fontWeight: '600', fontSize: 14 },
+  settingLabel: { fontWeight: "600", fontSize: 14 },
   divider: {
     height: 1,
     backgroundColor: colors.border,
     marginVertical: spacing.xs,
   },
-  menuCard: { padding: 0, overflow: 'hidden' },
+  menuCard: { padding: 0, overflow: "hidden" },
   tileRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: spacing.md,
   },
   tileLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: spacing.md,
     flex: 1,
   },
@@ -189,20 +182,20 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceMuted,
     padding: 10,
     borderRadius: shapes.radiusSmall,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 38,
     height: 38,
   },
   textContainer: {
     flex: 1,
   },
-  tileTitle: { fontWeight: '700', fontSize: 15 },
+  tileTitle: { fontWeight: "700", fontSize: 15 },
   tileSub: { color: colors.textMuted, fontSize: 12, marginTop: 2 },
   logoutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: spacing.base,
     backgroundColor: colors.surface,
     borderWidth: 1,
@@ -211,5 +204,5 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     marginTop: spacing.lg,
   },
-  logoutText: { color: colors.error, fontWeight: '800', letterSpacing: 0.5 },
+  logoutText: { color: colors.error, fontWeight: "800", letterSpacing: 0.5 },
 });

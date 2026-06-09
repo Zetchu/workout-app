@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import React from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   Card,
   Typography,
@@ -8,8 +8,8 @@ import {
   spacing,
   shapes,
   useFavorites,
-} from '#shared';
-import { Exercise } from '../../services/workoutService';
+} from "#shared";
+import { Exercise } from "../../services/workoutService";
 
 export default function ExerciseCard({ exercise }: { exercise: Exercise }) {
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -19,19 +19,12 @@ export default function ExerciseCard({ exercise }: { exercise: Exercise }) {
     <Card style={styles.cardSpacing}>
       <View style={styles.headerRow}>
         <View style={styles.textBlock}>
-          <Typography
-            variant='title'
-            style={styles.nameText}
-          >
+          <Typography variant="title" style={styles.nameText}>
             {exercise.name}
           </Typography>
-          <Typography
-            variant='body'
-            style={styles.descText}
-            numberOfLines={2}
-          >
+          <Typography variant="body" style={styles.descText} numberOfLines={2}>
             {exercise.instructions ||
-              'High-performance routine for physiological adaptations.'}
+              "High-performance routine for physiological adaptations."}
           </Typography>
         </View>
 
@@ -41,7 +34,7 @@ export default function ExerciseCard({ exercise }: { exercise: Exercise }) {
           hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
         >
           <Ionicons
-            name={favorited ? 'heart' : 'heart-outline'}
+            name={favorited ? "heart" : "heart-outline"}
             size={22}
             color={favorited ? colors.brand : colors.textMuted}
           />
@@ -51,38 +44,25 @@ export default function ExerciseCard({ exercise }: { exercise: Exercise }) {
       <View style={styles.metaRow}>
         <View style={styles.chipRow}>
           <View style={styles.chip}>
-            <Ionicons
-              name='barbell-outline'
-              size={12}
-              color={colors.brand}
-            />
-            <Typography
-              variant='label'
-              style={styles.chipText}
-            >
+            <Ionicons name="barbell-outline" size={12} color={colors.brand} />
+            <Typography variant="label" style={styles.chipText}>
               {exercise.muscle}
             </Typography>
           </View>
           <View style={styles.chip}>
             <Ionicons
-              name='shield-checkmark-outline'
+              name="shield-checkmark-outline"
               size={12}
               color={colors.brand}
             />
-            <Typography
-              variant='label'
-              style={styles.chipText}
-            >
+            <Typography variant="label" style={styles.chipText}>
               {exercise.difficulty}
             </Typography>
           </View>
         </View>
 
         <View style={styles.startButton}>
-          <Typography
-            variant='label'
-            style={styles.btnText}
-          >
+          <Typography variant="label" style={styles.btnText}>
             START
           </Typography>
         </View>
@@ -94,23 +74,23 @@ export default function ExerciseCard({ exercise }: { exercise: Exercise }) {
 const styles = StyleSheet.create({
   cardSpacing: { marginBottom: spacing.md, padding: 16 },
   headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
   textBlock: { flex: 1, paddingRight: spacing.sm },
-  nameText: { fontSize: 18, fontWeight: '800', marginBottom: 4 },
+  nameText: { fontSize: 18, fontWeight: "800", marginBottom: 4 },
   descText: { color: colors.textMuted, fontSize: 13, lineHeight: 18 },
   metaRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: spacing.md,
   },
-  chipRow: { flexDirection: 'row', gap: spacing.base },
+  chipRow: { flexDirection: "row", gap: spacing.base },
   chip: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     backgroundColor: colors.surfaceMuted,
     paddingHorizontal: spacing.base,
@@ -119,7 +99,7 @@ const styles = StyleSheet.create({
   },
   chipText: {
     color: colors.textMuted,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
     fontSize: 11,
   },
   startButton: {
@@ -128,5 +108,5 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: shapes.radiusSmall,
   },
-  btnText: { color: colors.background, fontWeight: '900' },
+  btnText: { color: colors.background, fontWeight: "900" },
 });

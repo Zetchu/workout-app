@@ -4,9 +4,5 @@
     "types": ["jest"],
     "strict": true
   },
-  "include": [
-    "**/*.js",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.js", "**/*.ts", "**/*.tsx"]
 }

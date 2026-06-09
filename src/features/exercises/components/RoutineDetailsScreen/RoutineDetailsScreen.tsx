@@ -1,7 +1,6 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { Header, Typography, Card, colors, spacing, shapes } from '#shared';
+import { StyleSheet, View, ScrollView } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { Header, Typography, Card, colors, spacing } from "#shared";
 
 export default function RoutineDetailsScreen() {
   const { id, muscle, difficulty, equipment, instructions } =
@@ -21,61 +20,40 @@ export default function RoutineDetailsScreen() {
         style={styles.scrollArea}
         contentContainerStyle={styles.scrollContent}
       >
-        <Typography
-          variant='display'
-          style={styles.mainTitle}
-        >
-          {id ? decodeURIComponent(id) : 'Exercise Details'}
+        <Typography variant="display" style={styles.mainTitle}>
+          {id ? decodeURIComponent(id) : "Exercise Details"}
         </Typography>
 
         <Card style={styles.card}>
-          <Typography
-            variant='label'
-            style={styles.sectionTitle}
-          >
+          <Typography variant="label" style={styles.sectionTitle}>
             TARGET DOMAIN
           </Typography>
           <View style={styles.divider} />
 
-          <Typography
-            variant='body'
-            style={styles.valueText}
-          >
-            Muscle Group:{' '}
+          <Typography variant="body" style={styles.valueText}>
+            Muscle Group:{" "}
             <Typography style={styles.capitalize}>{muscle}</Typography>
           </Typography>
-          <Typography
-            variant='body'
-            style={styles.valueText}
-          >
-            Difficulty:{' '}
+          <Typography variant="body" style={styles.valueText}>
+            Difficulty:{" "}
             <Typography style={styles.capitalize}>{difficulty}</Typography>
           </Typography>
-          <Typography
-            variant='body'
-            style={styles.valueText}
-          >
-            Equipment:{' '}
+          <Typography variant="body" style={styles.valueText}>
+            Equipment:{" "}
             <Typography style={styles.capitalize}>
-              {equipment || 'None'}
+              {equipment || "None"}
             </Typography>
           </Typography>
         </Card>
 
         <Card style={styles.card}>
-          <Typography
-            variant='label'
-            style={styles.sectionTitle}
-          >
+          <Typography variant="label" style={styles.sectionTitle}>
             EXECUTION INSTRUCTIONS
           </Typography>
           <View style={styles.divider} />
 
-          <Typography
-            variant='body'
-            style={styles.instructionsText}
-          >
-            {instructions || 'No execution instructions provided.'}
+          <Typography variant="body" style={styles.instructionsText}>
+            {instructions || "No execution instructions provided."}
           </Typography>
         </Card>
       </ScrollView>
@@ -97,7 +75,7 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   mainTitle: {
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.textMain,
     marginTop: spacing.sm,
     marginBottom: spacing.xs,
@@ -107,7 +85,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: colors.brand,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: 1,
   },
   divider: {
@@ -120,9 +98,9 @@ const styles = StyleSheet.create({
     marginVertical: spacing.xs,
   },
   capitalize: {
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
     color: colors.textMuted,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   instructionsText: {
     color: colors.textMuted,

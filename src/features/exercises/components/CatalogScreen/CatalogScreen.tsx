@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -8,9 +8,9 @@ import {
   TextInput,
   ScrollView,
   Alert,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
+} from "react-native";
+import { useRouter } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import {
   Header,
@@ -21,17 +21,17 @@ import {
   triggerLightImpact,
   triggerSuccessFeedback,
   useShakeSensor,
-} from '#shared';
+} from "#shared";
 
-import ExerciseCard from '../ExerciseCard';
-import { useExerciseSearch } from '../../services/useExerciseSearch';
-import { fetchExercises, type Exercise } from '../../services/workoutService';
+import ExerciseCard from "../ExerciseCard";
+import { useExerciseSearch } from "../../services/useExerciseSearch";
+import { fetchExercises, type Exercise } from "../../services/workoutService";
 
 export default function CatalogScreen() {
   const router = useRouter();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedMuscle, setSelectedMuscle] = useState<string>('biceps');
+  const [selectedMuscle, setSelectedMuscle] = useState<string>("biceps");
   const { searchQuery, setSearchQuery, filteredExercises } =
     useExerciseSearch(exercises);
 
@@ -47,7 +47,7 @@ export default function CatalogScreen() {
     void triggerSuccessFeedback();
 
     Alert.alert(
-      '🏋️ Shake Suggestion!',
+      "🏋️ Shake Suggestion!",
       `How about trying: "${randomExercise.name}"?`,
       [
         {
@@ -64,7 +64,7 @@ export default function CatalogScreen() {
             });
           },
         },
-        { text: 'Roll again', style: 'cancel' },
+        { text: "Roll again", style: "cancel" },
       ],
     );
   }, [filteredExercises, router]);
@@ -81,7 +81,8 @@ export default function CatalogScreen() {
         const data = await fetchExercises(selectedMuscle);
         if (active) setExercises(data);
       } catch (err) {
-        console.error('API Ingestion Error:', err);
+        // eslint-disable-next-line no-console
+        console.error("API Ingestion Error:", err);
       } finally {
         if (active) setLoading(false);
       }
@@ -92,11 +93,11 @@ export default function CatalogScreen() {
   }, [selectedMuscle]);
 
   const muscleGroups = [
-    { id: 'biceps', label: 'Biceps', icon: 'flame' as const },
-    { id: 'chest', label: 'Chest', icon: 'fitness' as const },
-    { id: 'lats', label: 'Back', icon: 'body' as const },
-    { id: 'quadriceps', label: 'Legs', icon: 'walk' as const },
-    { id: 'triceps', label: 'Triceps', icon: 'barbell' as const },
+    { id: "biceps", label: "Biceps", icon: "flame" as const },
+    { id: "chest", label: "Chest", icon: "fitness" as const },
+    { id: "lats", label: "Back", icon: "body" as const },
+    { id: "quadriceps", label: "Legs", icon: "walk" as const },
+    { id: "triceps", label: "Triceps", icon: "barbell" as const },
   ];
 
   return (
@@ -106,7 +107,7 @@ export default function CatalogScreen() {
       {/* Modern High-Contrast Search Bar */}
       <View style={styles.searchWrapper}>
         <Ionicons
-          name='search'
+          name="search"
           size={18}
           color={colors.textMuted}
           style={styles.searchIcon}
@@ -118,7 +119,7 @@ export default function CatalogScreen() {
           value={searchQuery}
           onChangeText={setSearchQuery}
           autoCorrect={false}
-          clearButtonMode='while-editing'
+          clearButtonMode="while-editing"
         />
       </View>
 
@@ -129,10 +130,7 @@ export default function CatalogScreen() {
         contentContainerStyle={styles.scrollContent}
         ListHeaderComponent={
           <View>
-            <Typography
-              variant='title'
-              style={styles.sectionHeader}
-            >
+            <Typography variant="title" style={styles.sectionHeader}>
               Muscle Targets
             </Typography>
 
@@ -176,16 +174,13 @@ export default function CatalogScreen() {
 
             {/* Hardware Capability Coach Callout */}
             <View style={styles.tipBox}>
-              <Typography
-                variant='label'
-                style={styles.shakeTip}
-              >
+              <Typography variant="label" style={styles.shakeTip}>
                 📱 SHAKE YOUR PHONE TO PICK A RANDOM WORKOUT
               </Typography>
             </View>
 
             <Typography
-              variant='title'
+              variant="title"
               style={[styles.sectionHeader, { marginTop: spacing.md }]}
             >
               Discovered Movements ({filteredExercises.length})
@@ -213,7 +208,7 @@ export default function CatalogScreen() {
         ListEmptyComponent={
           loading ? (
             <ActivityIndicator
-              size='large'
+              size="large"
               color={colors.brand}
               style={styles.loader}
             />
@@ -231,8 +226,8 @@ export default function CatalogScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   searchWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: colors.surfaceMuted,
     marginHorizontal: spacing.containerMargin,
     borderRadius: shapes.radiusMedium,
@@ -247,45 +242,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.containerMargin,
     paddingBottom: spacing.xl * 2,
   },
-  sectionHeader: { marginVertical: spacing.md, fontWeight: '800' },
+  sectionHeader: { marginVertical: spacing.md, fontWeight: "800" },
   categoryScroll: { gap: spacing.sm, paddingRight: spacing.lg },
   categoryCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: colors.surface,
     borderRadius: shapes.radiusLarge,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
-    alignItems: 'center',
+    alignItems: "center",
     gap: spacing.base,
     borderWidth: 1,
     borderColor: colors.border,
     minWidth: 105,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   activeCategoryCard: {
     backgroundColor: colors.brand,
     borderColor: colors.brand,
   },
-  catLabel: { fontWeight: '700', fontSize: 13, color: colors.textMain },
+  catLabel: { fontWeight: "700", fontSize: 13, color: colors.textMain },
   activeCatLabel: { color: colors.background },
   tipBox: {
     marginTop: spacing.lg,
     backgroundColor: colors.surfaceMuted,
     borderRadius: shapes.radiusSmall,
     padding: spacing.md,
-    alignItems: 'center',
+    alignItems: "center",
     borderWidth: 1,
     borderColor: colors.border,
   },
   shakeTip: {
     color: colors.brand,
-    fontWeight: '700',
+    fontWeight: "700",
     fontSize: 11,
     letterSpacing: 0.5,
   },
   emptyText: {
     color: colors.textMuted,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: spacing.xl,
   },
   loader: { marginTop: spacing.xl * 2 },

@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
-import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import * as ImagePicker from "expo-image-picker";
 
-const PROFILE_KEY = '@workout_app_profile';
+const PROFILE_KEY = "@workout_app_profile";
 
 export type UserProfile = {
   name: string;
@@ -18,10 +18,6 @@ export function useProfile() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    void loadProfile();
-  }, []);
-
   const loadProfile = async () => {
     try {
       const storedProfile = await AsyncStorage.getItem(PROFILE_KEY);
@@ -29,18 +25,25 @@ export function useProfile() {
         setProfile(JSON.parse(storedProfile));
       }
     } catch (error) {
-      console.error('Failed to load user profile', error);
+      // eslint-disable-next-line no-console
+      console.error("Failed to load user profile", error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadProfile();
+  }, []);
 
   const saveProfile = async (newProfile: UserProfile) => {
     try {
       await AsyncStorage.setItem(PROFILE_KEY, JSON.stringify(newProfile));
       setProfile(newProfile);
     } catch (error) {
-      console.error('Failed to save user profile', error);
+      // eslint-disable-next-line no-console
+      console.error("Failed to save user profile", error);
     }
   };
 
@@ -50,13 +53,13 @@ export function useProfile() {
 
     if (permissionResult.granted === false) {
       alert(
-        'Permission to access camera roll is required to upload progress photos!',
+        "Permission to access camera roll is required to upload progress photos!",
       );
       return;
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
+      mediaTypes: ["images"],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.8,
@@ -75,7 +78,8 @@ export function useProfile() {
       await AsyncStorage.removeItem(PROFILE_KEY);
       setProfile(null);
     } catch (error) {
-      console.error('Failed to clear profile', error);
+      // eslint-disable-next-line no-console
+      console.error("Failed to clear profile", error);
     }
   };
 
